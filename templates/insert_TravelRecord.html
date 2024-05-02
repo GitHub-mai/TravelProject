@@ -1,17 +1,30 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}旅行記録投稿画面{{ block.super }}{% endblock %}
 {% block content %}
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
+              <!--
               <iframe id="map"
                 src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAVWmrJ3ty7utzecOnva4f2QQ3ryVYsqeI&q={{ shop.address }}"
                 width="100%"
                 height="320"
                 frameborder="0">
               </iframe>
+              -->
+              <!--
+              <iframe id="map"
+                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d26088.568769172587!2d136.8653824!3d35.1797805!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sja!2sjp!4v1714645937125!5m2!1sja!2sjp"
+                width="100%"
+                height="320"
+                frameborder="0">
+              </iframe>
+              -->
+              <div id='map'></div>
             {% bootstrap_javascript jquery='full' %} 
             {{ insert_form.media }}
             {{ insert_form.as_p }}
         <input type="submit" value="投稿">
     </form>
+    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmBg1Gu-otXedw5NKYb8b5hmxU6vfnu-Q&callback=initMap"></script>-->
 {% endblock %}
