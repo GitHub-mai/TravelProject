@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="POST" enctype="multipart/form_data">
+    {% csrf_token %}  
+    {{ user_edit_form.as_p }}
+    <input type="submit" value="ユーザー情報更新">
+</form>
+    <a href="{% url 'TravelApp:change_password' %}">パスワード変更</a>
+{% endblock %}

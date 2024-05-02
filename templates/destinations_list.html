@@ -1,0 +1,22 @@
+{% extends 'base.html'%}
+{% block content %}
+<h1>旅行記録一覧</h1>
+
+
+<table>
+    <tr>
+        <th>No.</th>
+        <th>旅行先</th>
+        <th>旅行した日</th>
+        <th>記録</th>
+    </tr>
+    {% for destination in destinations %}
+    <tr>
+        <td><a href="{% url 'TravelApp:update_destination' destination_id=destination.destination_id %}">{{ destination.destination_id }}</a></td>
+        <td>{{ destination.destination_name }}</td>
+        <td>{{ destination.date }}</td>
+        <td>{{ destination.TravelRecord }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

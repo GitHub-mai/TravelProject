@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}旅行記録投稿画面{{ block.super }}{% endblock %}
+{% block content %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+              <iframe id="map"
+                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAVWmrJ3ty7utzecOnva4f2QQ3ryVYsqeI&q={{ shop.address }}"
+                width="100%"
+                height="320"
+                frameborder="0">
+              </iframe>
+            {% bootstrap_javascript jquery='full' %} 
+            {{ insert_form.media }}
+            {{ insert_form.as_p }}
+        <input type="submit" value="投稿">
+    </form>
+{% endblock %}
