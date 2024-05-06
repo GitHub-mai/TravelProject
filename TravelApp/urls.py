@@ -18,6 +18,7 @@ urlpatterns = [
     path('destinations_list/', views.destinations_list, name='destinations_list'),
     path('update_destination/<int:destination_id>', views.update_destination, name='update_destination'),
     path('delete_destination/<int:destination_id>', views.delete_destination, name='delete_destination'),
+    path('map/', views.map, name='map'),
 
     path('Todo/', TodoView.as_view(), name='Todo'),
     path('insert_TodoList/', views.insert_TodoList, name='insert_TodoList'),

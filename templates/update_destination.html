@@ -3,6 +3,7 @@
 {% block content %}
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
+        <div id='map'></div>
             {% bootstrap_javascript jquery='full' %} 
             {{ update_form.media }}
             {{ update_form.as_p }}

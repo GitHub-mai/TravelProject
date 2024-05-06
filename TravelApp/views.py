@@ -10,7 +10,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from . import forms
 from .models import Destinations, TodoLists
 from django.core.files.storage import FileSystemStorage
-import os
+import os, json
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.core.exceptions import ValidationError
@@ -108,11 +108,19 @@ def destinations_list(request):
         }
     )
 
+def map(request):
+    # データベースから位置情報を取得
+    destinations = Destinations.objects.all()
+    # 取得した位置情報をJavaScriptで使用できる形式に変換
+    destinations_json = json.dumps([{'latitude': destination.latitude, 'longitude': destination.longitude} for destination in destinations])
+    return render(request, 'map.html', {'destination': destinations_json})
+
+
 def update_destination(request, destination_id):
     destination = Destinations.objects.get(destination_id=destination_id)
     update_form = forms.DestinationUpdateForm(
         initial = {
-            'destination_id': destination.destination_id, 'destination_name': destination.destination_name, 'date': destination.date, 'TravelRecord': destination.TravelRecord, 'picture': destination.picture
+            'destination_id': destination.destination_id, 'destination_name': destination.destination_name, 'date': destination.date, 'TravelRecord': destination.TravelRecord, 'picture': destination.picture, 'latitude': destination.latitude, 'longitude': destination.longitude
         }
     )
     if request.method == 'POST':
@@ -121,6 +129,8 @@ def update_destination(request, destination_id):
         if update_form.is_valid():
             destination.destination_name = update_form.cleaned_data['destination_name']
             destination.date = update_form.cleaned_data['date']
+            destination.latitude = update_form.cleaned_data['latitude'] 
+            destination.longitude = update_form.cleaned_data['longitude'] 
             destination.TravelRecord = update_form.cleaned_data['TravelRecord']         
             picture = update_form.cleaned_data['picture']
             if picture:

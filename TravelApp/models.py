@@ -42,9 +42,10 @@ class Destinations(models.Model):
     username = models.ForeignKey(Users, on_delete=models.CASCADE, max_length=150, blank=True, null=True)
     destination_name = models.CharField(max_length=150)
     date = models.DateField(verbose_name="旅行した日", blank=False, null=False, default=timezone.now)
-    GoogleMapURL = models.URLField()
     TravelRecord = models.CharField(max_length=500)
     picture = models.FileField(upload_to='destination/')
+    latitude = models.FloatField(default=0.0)
+    longitude = models.FloatField(default=0.0)    
     create_at = models.DateTimeField(verbose_name="登録日時", auto_now_add=True)
     update_at = models.DateTimeField(verbose_name="更新日時", auto_now=True, blank=True, null=True)
 
@@ -56,7 +57,7 @@ class TodoLists(models.Model):
     TodoList_id = models.AutoField(primary_key=True)
     destination = models.CharField(max_length=150, default='')
     todo_list = models.CharField(max_length=500, blank=True, null=True)
-    complete_flg = models.BooleanField(null=True)
+    complete_flg = models.BooleanField(verbose_name="完了", default=False)
     create_at = models.DateTimeField(verbose_name="登録日時", auto_now_add=True)
     update_at = models.DateTimeField(verbose_name="更新日時", auto_now=True, blank=True, null=True)
 
