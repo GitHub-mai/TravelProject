@@ -13,7 +13,7 @@
         <td><a href="{% url 'TravelApp:update_TodoList' TodoList_id=todolist.TodoList_id %}">{{ todolist.TodoList_id }}</a></td>
         <td>{{ todolist.destination }}</td>
         <td>{{ todolist.todo_list }}</td>
-        <td>{{ todolist.complete_flg }}</td>
+        <td><input type="checkbox" {% if todolist.complete_flg %} checked {% endif %}></td>
     </tr>
     {% endfor %}
 </table>

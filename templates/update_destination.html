@@ -1,14 +1,38 @@
-{% extends "base.html" %}
-{% block title %}旅行記録編集画面{{ block.super }}{% endblock %}
-{% block content %}
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div id='map'></div>
-            {% bootstrap_javascript jquery='full' %} 
-            {{ update_form.media }}
-            {{ update_form.as_p }}
-        <input type="submit" value="更新">
-        <p><img src={{ destination.picture.url }}></img></p>
-    </form>
-    <p><a href="{% url 'TravelApp:delete_destination' destination_id=destination.destination_id %}">削除する</a></p>
-{% endblock %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Google Map</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVWmrJ3ty7utzecOnva4f2QQ3ryVYsqeI&callback=initMap" async defer></script>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script>
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 1,
+                center: {lat: 0, lng: 0} // Default center
+            });
+
+            var destinations = [
+                {% for destination in destinations %}
+                    {lat: {{ destination.latitude }}, lng: {{ destination.longitude }}},
+                {% endfor %}
+            ];
+
+            for (var destination_id = 0; destination_id < destinations.length; destination_id++) {
+                var marker = new google.maps.Marker({
+                    position: destinations[destination_id],
+                    map: map
+                });
+            }
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVWmrJ3ty7utzecOnva4f2QQ3ryVYsqeI&callback=initMap" async defer></script>
+</body>
+</html>

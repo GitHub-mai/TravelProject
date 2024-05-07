@@ -137,6 +137,7 @@ STATIC_URL = 'static/'
 LOGIN_URL = '/TravelApp/user_login'
 LOGIN_REDIRECT_URL = '/TravelApp/home'
 LOGOUT_REDIRECT_URL = '/TravelApp/user_login'
+GOOGLE_MAPS_API_KEY = 'AIzaSyAVWmrJ3ty7utzecOnva4f2QQ3ryVYsqeI'
 
 STATICFILES_DIRS = [
     STATIC_DIR

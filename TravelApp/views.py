@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView, FormView
 from django.views.generic.base import TemplateView, View
 from .forms import RegistForm, UserLoginForm, TravelRecordInsertForm
@@ -107,14 +107,22 @@ def destinations_list(request):
             'destinations': destinations
         }
     )
-
+'''
 def map(request):
     # データベースから位置情報を取得
     destinations = Destinations.objects.all()
     # 取得した位置情報をJavaScriptで使用できる形式に変換
     destinations_json = json.dumps([{'latitude': destination.latitude, 'longitude': destination.longitude} for destination in destinations])
     return render(request, 'map.html', {'destination': destinations_json})
+'''
 
+def map(request):
+    destinations = Destinations.objects.all()
+    return render(request, 'map.html', {'destinations': destinations})
+
+def destination_detail(request, destination_id):
+    destination = Destinations.objects.get(id=destination_id)
+    return render(request, 'destination_detail.html', {'destination': destination})
 
 def update_destination(request, destination_id):
     destination = Destinations.objects.get(destination_id=destination_id)
@@ -198,9 +206,11 @@ def update_TodoList(request, TodoList_id):
         
         update_form = forms.TodoListUpdateForm(request.POST or None)
         if update_form.is_valid():
+            print("complete_flg", update_form.cleaned_data['complete_flg'])
             todolist.destination = update_form.cleaned_data['destination']
             todolist.todo_list = update_form.cleaned_data['todo_list']
-            todolist.complete_flg = update_form.cleaned_data['complete_flg']         
+            todolist.complete_flg = update_form.cleaned_data['complete_flg']      
+            todolist.save()   
             #picture = update_form.cleaned_data['picture']
             #if picture:
             #    fs = FileSystemStorage()

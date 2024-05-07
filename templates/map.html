@@ -1,11 +1,113 @@
-{% extends "base.html" %}
-{% load static %}
-{% block title %}地図画面{{ block.super }}{% endblock %}
-{% block content %}
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-            <div id='map'></div>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Google Map</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVWmrJ3ty7utzecOnva4f2QQ3ryVYsqeI&callback=initMap" async defer></script>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script>
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 1,
+                center: {lat: 0, lng: 0} // Default center
+            });
 
-    </form>
-    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmBg1Gu-otXedw5NKYb8b5hmxU6vfnu-Q&callback=initMap"></script>-->
-{% endblock %}
+            var destinations = [
+                {% for destination in destinations %}
+                    {
+                        lat: {{ destination.latitude }}, 
+                        lng: {{ destination.longitude }},
+                        info: '<div><h10>{{ destination.user_id.username }}</h10><p>{{ destination.destination_name }}</p></div>'
+                    },
+                {% endfor %}
+            ];
+
+            var infoWindow = new google.maps.InfoWindow();
+
+            for (var i = 0; i < destinations.length; i++) {
+                var marker = new google.maps.Marker({
+                    position: destinations[i],
+                    map: map
+                });
+
+                google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
+                    return function() {
+                        infoWindow.setContent(destinations[i].info);
+                        infoWindow.open(map, marker);
+                    }
+                })(marker, i));
+
+                google.maps.event.addListener(marker, 'mouseout', function() {
+                    infoWindow.close();
+                });
+
+            }
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVWmrJ3ty7utzecOnva4f2QQ3ryVYsqeI&callback=initMap" async defer></script>
+</body>
+</html>
+
+<!--
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Google Map</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVWmrJ3ty7utzecOnva4f2QQ3ryVYsqeI&callback=initMap" async defer></script>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script>
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 1,
+                center: {lat: 0, lng: 0} // Default center
+            });
+
+            var destinations = [
+                {% for destination in destinations %}
+                    {lat: {{ destination.latitude }},
+                     lng: {{ destination.longitude }},
+                     info: '<div><h3>{{ destination.destination_name }}</h3><p>{{ destination.TravelRecord }}</p></div>'
+                    },
+                {% endfor %}
+            ];
+
+            var infoWindow = new google.maps.InfoWindow();
+
+            for (var i = 0; i < destinations.length; i++) {
+                var marker = new google.maps.Marker({
+                    position: destinations[i],
+                    map: map
+                });
+
+                google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
+                    return function() {
+                        infoWindow.setContent(destinations[i].info);
+                        infoWindow.open(map, marker);
+                    }
+                })(marker, i));
+
+                google.maps.event.addListener(marker, 'mouseout', function() {
+                    infoWindow.close();
+                });
+            }
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVWmrJ3ty7utzecOnva4f2QQ3ryVYsqeI&callback=initMap" async defer></script>
+</body>
+</html>
+-->

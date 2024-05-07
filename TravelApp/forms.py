@@ -65,7 +65,7 @@ class TravelRecordInsertForm(forms.ModelForm):
     destination_name = forms.CharField(label='旅行先')
     date = forms.DateField(label='旅行した日', widget=DatePickerInput(format='%Y-%m-%d'))
     TravelRecord = forms.CharField(label='記録', widget=forms.Textarea)
-    picture = forms.FileField(label='画像アップロード')
+    picture = forms.FileField(label='画像アップロード', required=False)
     #latitude = forms.FloatField()
     #longitude = forms.FloatField()
 
@@ -85,7 +85,7 @@ class DestinationUpdateForm(forms.Form):
 
     class Meta:
         model = Destinations
-        fields = ['destination_id', 'destination_name', 'date', 'TravelRecord', 'latitude', 'longitude']    
+        fields = ['destination_id', 'destination_name', 'date', 'TravelRecord', 'picture', 'latitude', 'longitude']    
 
 class DestinationDeleteForm(forms.Form):
     destination_id = forms.IntegerField(widget=forms.HiddenInput)

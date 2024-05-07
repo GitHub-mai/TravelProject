@@ -39,7 +39,7 @@ class Users(AbstractBaseUser, PermissionsMixin):
 
 class Destinations(models.Model):
     destination_id = models.AutoField(primary_key=True)
-    username = models.ForeignKey(Users, on_delete=models.CASCADE, max_length=150, blank=True, null=True)
+    user_id = models.ForeignKey(Users, db_column='user_id', on_delete=models.CASCADE, max_length=150, blank=True, null=True)
     destination_name = models.CharField(max_length=150)
     date = models.DateField(verbose_name="旅行した日", blank=False, null=False, default=timezone.now)
     TravelRecord = models.CharField(max_length=500)
