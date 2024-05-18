@@ -1,8 +1,9 @@
 from django import forms
 from .models import Users, Destinations, TodoLists
 from django.contrib.auth.password_validation import validate_password
-from bootstrap_datepicker_plus.widgets import DatePickerInput
 from django.contrib.auth.forms import AuthenticationForm
+from django.forms import widgets
+from django.utils.safestring import mark_safe
 
 ###ログイン機能、ユーザー情報編集、パスワード変更###
 class RegistForm(forms.ModelForm):
@@ -61,9 +62,25 @@ class PasswordChangeForm(forms.ModelForm):
         user.save()
 
 ###旅行記録登録、編集、削除###
+class DatePickerWidget(widgets.DateInput):
+    class Media:
+        css = {
+            'all': ('https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css',)
+        }
+        js = (
+            'https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js',
+            'https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js',
+            'datepicker_script.js',  # カスタムJavaScriptファイル
+        )
+
+    def render(self, name, value, attrs=None, renderer=None):
+        rendered = super().render(name, value, attrs=attrs, renderer=renderer)
+        return rendered + mark_safe('<script>$(function() { $("#id_%s").datepicker({ maxDate: 0 }); });</script>' % name)
+
 class TravelRecordInsertForm(forms.ModelForm):
+    #user_id = forms.IntegerField(widget=forms.HiddenInput)
     destination_name = forms.CharField(label='旅行先')
-    date = forms.DateField(label='旅行した日', widget=DatePickerInput(format='%Y-%m-%d'))
+    date = forms.DateField(label='旅行した日',widget=DatePickerWidget)
     TravelRecord = forms.CharField(label='記録', widget=forms.Textarea)
     picture = forms.FileField(label='画像アップロード', required=False)
     #latitude = forms.FloatField()
@@ -77,7 +94,7 @@ class TravelRecordInsertForm(forms.ModelForm):
 class DestinationUpdateForm(forms.Form):
     #destination_id = forms.IntegerField(label='No.')
     destination_name = forms.CharField(label='旅行先')
-    date = forms.DateField(label='旅行した日', widget=DatePickerInput(format='%Y-%m-%d'))
+    date = forms.DateField(label='旅行した日',widget=DatePickerWidget)
     TravelRecord = forms.CharField(label='記録', widget=forms.Textarea)
     picture = forms.FileField(label='画像アップロード', required=False)
     latitude = forms.FloatField()

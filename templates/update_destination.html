@@ -1,38 +1,57 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Google Map</title>
+{% extends "base.html" %}
+{% block title %}旅行記録編集画面{{ block.super }}{% endblock %}
+{% block content %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div id='map'></div>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVWmrJ3ty7utzecOnva4f2QQ3ryVYsqeI&callback=initMap" async defer></script>
-    <style>
-        #map {
-            height: 400px;
-            width: 100%;
-        }
-    </style>
-</head>
-<body>
-    <div id="map"></div>
     <script>
+        var map;
+        var marker;
+
         function initMap() {
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 1,
-                center: {lat: 0, lng: 0} // Default center
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 0, lng: 0},
+                zoom: 2
             });
 
-            var destinations = [
-                {% for destination in destinations %}
-                    {lat: {{ destination.latitude }}, lng: {{ destination.longitude }}},
-                {% endfor %}
-            ];
-
-            for (var destination_id = 0; destination_id < destinations.length; destination_id++) {
-                var marker = new google.maps.Marker({
-                    position: destinations[destination_id],
+            // マップ上でクリックされたときにピンを立てるイベントリスナーを追加
+            map.addListener('click', function(event) {
+                placeMarker(event.latLng);
+            });
+        }
+            function placeMarker(destination) {
+                // 以前に立てられたマーカーがあれば削除
+                if (marker) {
+                    marker.setMap(null);
+                }
+                // 新しいマーカーを立てる
+                marker = new google.maps.Marker({
+                    position: destination,
                     map: map
                 });
+
+                // 緯度と経度を取得
+                var latitude = destination.lat();
+                var longitude = destination.lng();
+            
+                // フォームの入力フィールドに緯度と経度を設定
+                document.getElementById('id_latitude').value = latitude;
+                document.getElementById('id_longitude').value = longitude;
             }
-        }
+        
+
     </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVWmrJ3ty7utzecOnva4f2QQ3ryVYsqeI&callback=initMap" async defer></script>
-</body>
-</html>
+
+            {% bootstrap_javascript jquery='full' %} 
+            {{ update_form.media }}
+            {{ update_form.as_p }}
+        <input type="submit" value="更新">
+        {% if destination.picture %}
+            <p><img src={{ destination.picture.url }}></img></p>
+        {% endif %}
+    </form>
+    <p><a href="{% url 'TravelApp:delete_destination' destination_id=destination.destination_id %}">削除する</a></p>
+{% endblock %}
+
+

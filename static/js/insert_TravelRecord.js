@@ -49,7 +49,7 @@ var map;
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 35.6895, lng: 139.6917}, // 初期の位置情報（東京の緯度経度）
-        zoom: 8
+        zoom: 5
     });
 
     // マップ上でクリックが発生したときのイベントリスナーを追加

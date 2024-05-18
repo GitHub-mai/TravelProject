@@ -1,4 +1,13 @@
 #map{
-    height: 400px;
-    width: 400px;
+    height: 50vw;
+    width: 80vw;
+}
+
+#header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+  .navbar-brand {
+     width: 100%;
 }

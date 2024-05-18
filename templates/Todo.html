@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html>
-    <head>
+{% extends "base.html" %}
+{% block add_header %}
         <meta charset="utf-8">
         <title>ToDo</title>
-    </head>
-    <body>
+{% endblock %}
+
+{% block content %}
         <h1>ToDo</h1>
         <a href="{% url 'TravelApp:insert_TodoList' %}">ToDoリスト登録</a>
         <a href="{% url 'TravelApp:Todo_List' %}">ToDoリスト</a>
-    </body>
-</html>
+{% endblock %}
