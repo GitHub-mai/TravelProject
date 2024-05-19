@@ -8,12 +8,13 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from . import forms
-from .models import Destinations, TodoLists
+from .models import Destinations, TodoLists, Users
 from django.core.files.storage import FileSystemStorage
 import os, json
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.core.exceptions import ValidationError
+from django.contrib.auth.decorators import login_required
 
 class HomeView(TemplateView):
     template_name = 'home.html'
@@ -92,7 +93,20 @@ def change_password(request):
 def insert_TravelRecord(request):
     insert_form = forms.TravelRecordInsertForm(request.POST or None, request.FILES or None)
     if insert_form.is_valid():
-        insert_form.save()
+
+        user = Users.objects.get(pk=request.user.user_id)
+        destination = Destinations(
+            user_id=user,
+            destination_name=insert_form.cleaned_data["destination_name"],
+            date=insert_form.cleaned_data["date"],
+            TravelRecord=insert_form.cleaned_data["TravelRecord"],
+            picture=insert_form.cleaned_data["picture"],
+            latitude=insert_form.cleaned_data["latitude"],
+            longitude=insert_form.cleaned_data["longitude"],
+        )
+        destination.save()
+
+        #insert_form.save()
         insert_form = forms.TravelRecordInsertForm()
     return render(
         request, 'insert_TravelRecord.html', context={
@@ -100,6 +114,7 @@ def insert_TravelRecord(request):
         }
     )
 
+'''
 def destinations_list(request):
     destinations = Destinations.objects.all()
     return render(
@@ -108,13 +123,15 @@ def destinations_list(request):
         }
     )
 '''
-def map(request):
-    # データベースから位置情報を取得
-    destinations = Destinations.objects.all()
-    # 取得した位置情報をJavaScriptで使用できる形式に変換
-    destinations_json = json.dumps([{'latitude': destination.latitude, 'longitude': destination.longitude} for destination in destinations])
-    return render(request, 'map.html', {'destination': destinations_json})
-'''
+@login_required
+def destinations_list(request):
+    destinations = Destinations.objects.filter(user_id=request.user)
+    return render(
+        request, 'destinations_list.html', context={
+            'destinations': destinations
+        }
+    )
+
 
 def map(request):
     destinations = Destinations.objects.all()

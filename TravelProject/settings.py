@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+from django.core.management.utils import get_random_secret_key
+SECRET_KEY = get_random_secret_key()  
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -30,7 +33,7 @@ SECRET_KEY = 'django-insecure-51(k=oc3ve07la^b!vc+0oa30998fha4%wbnh4qcz3eq0r))km
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '.pythonanywhere.com', 'miuramai.pythonanywhere.com']
 
 
 # Application definition
@@ -138,6 +141,11 @@ LOGIN_URL = '/TravelApp/user_login'
 LOGIN_REDIRECT_URL = '/TravelApp/home'
 LOGOUT_REDIRECT_URL = '/TravelApp/user_login'
 GOOGLE_MAPS_API_KEY = 'AIzaSyAVWmrJ3ty7utzecOnva4f2QQ3ryVYsqeI'
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+from django.conf.global_settings import DATETIME_INPUT_FORMATS
+DATETIME_INPUT_FORMATS += ('%Y/%m/%d',)
 
 STATICFILES_DIRS = [
     STATIC_DIR

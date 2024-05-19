@@ -43,9 +43,9 @@ class Destinations(models.Model):
     destination_name = models.CharField(max_length=150)
     date = models.DateField(verbose_name="旅行した日", blank=False, null=False, default=timezone.now)
     TravelRecord = models.CharField(max_length=500)
-    picture = models.FileField(upload_to='destination/')
-    latitude = models.FloatField(default=0.0)
-    longitude = models.FloatField(default=0.0)    
+    picture = models.ImageField(upload_to='destination/')
+    latitude = models.FloatField(verbose_name="緯度", default=0.0)
+    longitude = models.FloatField(verbose_name="経度", default=0.0)    
     create_at = models.DateTimeField(verbose_name="登録日時", auto_now_add=True)
     update_at = models.DateTimeField(verbose_name="更新日時", auto_now=True, blank=True, null=True)
 
