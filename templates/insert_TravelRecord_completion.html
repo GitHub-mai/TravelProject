@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}登録完了画面{% endblock %}
+{% block content %}
+    <h2>登録完了しました</h2>
+
+    <a href="{% url 'TravelApp:insert_TravelRecord' %}">旅行記録登録画面へ</a>
+{% endblock %}
+

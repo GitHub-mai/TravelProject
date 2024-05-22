@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/form_style.css' %}">
+<div class="center-text">
+
 <form method="POST">
     {% csrf_token %}  
     {{ form.as_p }}

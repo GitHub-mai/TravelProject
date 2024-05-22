@@ -100,12 +100,14 @@ def insert_TravelRecord(request):
             destination_name=insert_form.cleaned_data["destination_name"],
             date=insert_form.cleaned_data["date"],
             TravelRecord=insert_form.cleaned_data["TravelRecord"],
-            picture=insert_form.cleaned_data["picture"],
             latitude=insert_form.cleaned_data["latitude"],
             longitude=insert_form.cleaned_data["longitude"],
+            picture=insert_form.cleaned_data["picture"],
         )
         destination.save()
-
+        return redirect('TravelApp:insert_TravelRecord_completion')
+    
+    else:
         #insert_form.save()
         insert_form = forms.TravelRecordInsertForm()
     return render(
@@ -114,15 +116,12 @@ def insert_TravelRecord(request):
         }
     )
 
-'''
-def destinations_list(request):
-    destinations = Destinations.objects.all()
-    return render(
-        request, 'destinations_list.html', context={
-            'destinations': destinations
-        }
-    )
-'''
+
+def insert_TravelRecord_completion(request):
+    destination = Destinations.objects.all()
+    return render(request, 'insert_TravelRecord_completion.html', {'destination': destination})
+
+
 @login_required
 def destinations_list(request):
     destinations = Destinations.objects.filter(user_id=request.user)
@@ -140,6 +139,38 @@ def map(request):
 def destination_detail(request, destination_id):
     destination = Destinations.objects.get(id=destination_id)
     return render(request, 'destination_detail.html', {'destination': destination})
+
+'''
+def update_destination(request, destination_id):
+    destination = Destinations.objects.get(destination_id=destination_id)
+    update_form = forms.DestinationUpdateForm(
+        initial = {
+            'destination_id': destination.destination_id, 'destination_name': destination.destination_name, 'date': destination.date, 'TravelRecord': destination.TravelRecord, 'picture': destination.picture, 'latitude': destination.latitude, 'longitude': destination.longitude
+        }
+    )
+    if request.method == 'POST':
+        
+        update_form = forms.DestinationUpdateForm(request.POST or None, request.FILES or None)
+        if update_form.is_valid():
+            destination.destination_name = update_form.cleaned_data['destination_name']
+            destination.date = update_form.cleaned_data['date']
+            destination.latitude = update_form.cleaned_data['latitude'] 
+            destination.longitude = update_form.cleaned_data['longitude'] 
+            destination.TravelRecord = update_form.cleaned_data['TravelRecord']         
+            picture = update_form.cleaned_data['picture']
+            if picture:
+                fs = FileSystemStorage()
+                file_name = fs.save(os.path.join('destination', picture.name), picture)
+                destination.picture = file_name
+            destination.save()
+
+    return render(
+        request, 'update_destination.html', context={
+            'update_form': update_form,
+            'destination': destination
+        }
+    )
+'''
 
 def update_destination(request, destination_id):
     destination = Destinations.objects.get(destination_id=destination_id)
@@ -163,14 +194,21 @@ def update_destination(request, destination_id):
                 file_name = fs.save(os.path.join('destination', picture.name), picture)
                 destination.picture = file_name
             destination.save()
+            return redirect('TravelApp:update_destination_completion')
+    #else:
+    #    update_form = forms.DestinationUpdateForm()
         
-
     return render(
         request, 'update_destination.html', context={
             'update_form': update_form,
             'destination': destination
         }
     )
+
+def update_destination_completion(request):
+    destination = Destinations.objects.all()
+    return render(request, 'update_destination_completion.html', {'destination': destination})
+
 
 def delete_destination(request, destination_id):
     delete_form = forms.DestinationDeleteForm(

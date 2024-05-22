@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+from django.contrib.messages import constants as messages
 from django.core.management.utils import get_random_secret_key
 SECRET_KEY = get_random_secret_key()  
 
@@ -33,8 +34,8 @@ SECRET_KEY = 'django-insecure-51(k=oc3ve07la^b!vc+0oa30998fha4%wbnh4qcz3eq0r))km
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '.pythonanywhere.com', 'miuramai.pythonanywhere.com']
-
+#ALLOWED_HOSTS = ['localhost', '.pythonanywhere.com', 'miuramai.pythonanywhere.com']
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -154,3 +155,11 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'debug',
+    messages.INFO: 'info',
+    messages.SUCCESS: 'success',
+    messages.WARNING: 'warning',
+    messages.ERROR: 'error',
+}

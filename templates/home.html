@@ -1,4 +1,13 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link href="https://fonts.googleapis.com/css2?family=Danfo&family=M+PLUS+Rounded+1c&family=Poetsen+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'css/form_style.css' %}">
+{% endblock %}
+
 {% block content %}
-<h1>旅行記録アプリ✨</h1>
+<div class="custom-font">
+<h1>旅行記録アプリ✈</h1>
+</div>
 {% endblock %}

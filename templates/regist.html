@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block content %}
+<!--<div class="regist-container">-->
+<div class="center-text">
 <form method="POST">
     {% csrf_token %}  
     {{ form.as_p }}

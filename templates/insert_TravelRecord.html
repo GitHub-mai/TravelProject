@@ -4,6 +4,8 @@
 {% block content %}
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVWmrJ3ty7utzecOnva4f2QQ3ryVYsqeI&callback=initMap" async defer></script>
 
+    <link rel="stylesheet" type="text/css" href="{% static 'picture_style.css' %}">
+
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div id='map'></div>
@@ -37,23 +39,35 @@
             // 緯度と経度を取得
             var latitude = destination.lat();
             var longitude = destination.lng();
-        
+
             // フォームの入力フィールドに緯度と経度を設定
             document.getElementById('id_latitude').value = latitude;
             document.getElementById('id_longitude').value = longitude;
-        }
+        }   
+    </script>    
 
-    </script>
             {% bootstrap_javascript jquery='full' %} 
             {{ insert_form.media }}
             {{ insert_form.as_p }}
-        <input type="submit" value="投稿">
 
-     {% for destination in destinations %}
-    <tr>
-        <td><img src="{{ destination.picture.url }}" width="100" height="100"/></td>
-    <tr>
-    {% endfor %}
+        <img id="picture-preview" class="preview" src="#" alt="Picture Preview" style="display:none;"/>
+
+        <input type="submit" value="登録">
+
+    <script>
+        document.querySelector('input[type="file"]').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('picture-preview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
 
     </form>
 

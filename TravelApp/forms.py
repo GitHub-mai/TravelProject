@@ -88,7 +88,7 @@ class TravelRecordInsertForm(forms.ModelForm):
 
     class Meta:
         model = Destinations
-        fields = ['destination_id', 'destination_name', 'date', 'TravelRecord', 'picture', 'latitude', 'longitude']
+        fields = ['destination_id', 'destination_name', 'date', 'TravelRecord', 'latitude', 'longitude', 'picture']
  
 
 class DestinationUpdateForm(forms.Form):

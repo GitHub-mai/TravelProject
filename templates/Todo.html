@@ -1,11 +1,18 @@
 {% extends "base.html" %}
+{% load static %}
 {% block add_header %}
         <meta charset="utf-8">
-        <title>ToDo</title>
+        <title>Todo</title>
 {% endblock %}
 
 {% block content %}
-        <h1>ToDo</h1>
-        <a href="{% url 'TravelApp:insert_TodoList' %}">ToDoリスト登録</a>
-        <a href="{% url 'TravelApp:Todo_List' %}">ToDoリスト</a>
+<link rel="stylesheet" type="text/css" href="{% static 'css/form_style.css' %}">
+<div class="center-text">
+        <h1>Todo📝</h1>
+</div>
+
+<div class="center-button-container">
+        <button onclick="location.href='{% url 'TravelApp:insert_TodoList' %}'">Todoリスト登録</button>
+        <button onclick="location.href='{% url 'TravelApp:Todo_List' %}'">Todoリスト</button>
+</div>
 {% endblock %}

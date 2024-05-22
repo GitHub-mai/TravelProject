@@ -1,14 +1,22 @@
 {% extends "base.html" %}
 {% block add_header %}
+{% load static %}
         <meta charset="utf-8">
         <title>MyPage</title>
 {% endblock %}
 
 {% block content %}
+
+<div class="center-text">
         <h1>マイページ</h1>
-        <a href="{% url 'TravelApp:insert_TravelRecord' %}">旅行記録登録</a>
-        <a href="{% url 'TravelApp:destinations_list' %}">旅行記録編集・削除</a>
-        <a href="{% url 'TravelApp:map' %}">地図画面</a>
-        <a href="{% url 'TravelApp:Todo' %}">Todoリスト</a>
-        <a href="{% url 'TravelApp:user_edit' %}">ユーザー情報編集</a>
+</div>    
+
+<div class="center-button-container">
+        <button onclick="location.href='{% url 'TravelApp:insert_TravelRecord' %}'">旅行記録登録</button>
+        <button onclick="location.href='{% url 'TravelApp:destinations_list' %}'">旅行記録編集・削除</button>
+        <button onclick="location.href='{% url 'TravelApp:map' %}'">地図画面</button>
+        <button onclick="location.href='{% url 'TravelApp:Todo' %}'">Todoリスト</button>
+        <button onclick="location.href='{% url 'TravelApp:user_edit' %}'">ユーザー情報編集</button>
+</div>
 {% endblock %}
+

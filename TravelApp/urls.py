@@ -15,8 +15,10 @@ urlpatterns = [
 
     path('user/', UserView.as_view(), name='user'),
     path('insert_TravelRecord/', views.insert_TravelRecord, name='insert_TravelRecord'),
+    path('insert_TravelRecord_completion/', views.insert_TravelRecord_completion, name='insert_TravelRecord_completion'),
     path('destinations_list/', views.destinations_list, name='destinations_list'),
     path('update_destination/<int:destination_id>', views.update_destination, name='update_destination'),
+    path('update_destination_completion/', views.update_destination_completion, name='update_destination_completion'),
     path('delete_destination/<int:destination_id>', views.delete_destination, name='delete_destination'),
     path('map/', views.map, name='map'),
 
