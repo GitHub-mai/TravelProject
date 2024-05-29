@@ -38,3 +38,4 @@ urlpatterns = [
     path('change_password', views.change_password, name='change_password'),
     path('change_password_completion', views.change_password_completion, name='change_password_completion'),
 ]
+

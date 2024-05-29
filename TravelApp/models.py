@@ -64,3 +64,4 @@ class TodoLists(models.Model):
 
     class Meta:
         db_table = 'todolists'
+

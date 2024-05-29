@@ -388,3 +388,4 @@ def delete_TodoList(request, TodoList_id):
             'delete_form': delete_form
         }
     )
+
