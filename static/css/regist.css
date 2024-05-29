@@ -22,8 +22,8 @@ main {
 
 .form-container {
     width: 100%;
-    max-width: 850px;
-    padding: 70px;
+    max-width: 700px;
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 10px;
     background-color: #fff;
@@ -54,7 +54,7 @@ main {
 
 /* ラベルと入力欄を縦に並べる */
 .form-group label, .form-group input {
-    width: 100%; /* ラベルと入力欄の幅を設定 */
+    width: 170%; /* ラベルと入力欄の幅を設定 */
     text-align: left; /* テキストを左揃え */
 }
 

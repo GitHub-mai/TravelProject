@@ -23,8 +23,8 @@ class Users(AbstractBaseUser, PermissionsMixin):
     user_id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=150, default='')
     email = models.EmailField(max_length=255, unique=True)
-    #is_active = models.BooleanField(default=True)
-    #is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
     create_at = models.DateTimeField(verbose_name="登録日時", auto_now_add=True)
     update_at = models.DateTimeField(verbose_name="更新日時", auto_now=True, blank=True, null=True)
 
@@ -55,6 +55,7 @@ class Destinations(models.Model):
 
 class TodoLists(models.Model):
     TodoList_id = models.AutoField(primary_key=True)
+    user_id = models.ForeignKey(Users, db_column='user_id', on_delete=models.CASCADE, max_length=150, blank=True, null=True)
     destination = models.CharField(max_length=150, default='')
     todo_list = models.CharField(max_length=500, blank=True, null=True)
     complete_flg = models.BooleanField(verbose_name="完了", default=False)

@@ -1,3 +1,8 @@
+body {
+    background-color: #f6efce; /* 任意の背景色を設定 */
+    margin: 0; /* 余白を削除 */
+}
+
 .preview {
     display: block;
     max-width: 300px;

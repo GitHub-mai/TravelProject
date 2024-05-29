@@ -7,9 +7,9 @@ from django.utils.safestring import mark_safe
 
 ###ログイン機能、ユーザー情報編集、パスワード変更###
 class RegistForm(forms.ModelForm):
-    username = forms.CharField(label='名前')
-    email = forms.EmailField(label='メールアドレス')
-    password = forms.CharField(label='パスワード', widget=forms.PasswordInput())
+    username = forms.CharField(label='名前', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(label='メールアドレス', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    password = forms.CharField(label='パスワード', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     #confirm_password = forms.CharField(label='パスワード再入力', widget=forms.PasswordInput())
     
     class Meta:
@@ -32,8 +32,8 @@ class UserLoginForm(AuthenticationForm):
     password = forms.CharField(label='パスワード', widget=forms.PasswordInput())
 
 class UserEditForm(forms.ModelForm):
-    username = forms.CharField(label='名前')
-    email = forms.EmailField(label='メールアドレス')
+    username = forms.CharField(label='名前', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(label='メールアドレス', widget=forms.TextInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = Users
@@ -41,8 +41,8 @@ class UserEditForm(forms.ModelForm):
 
 class PasswordChangeForm(forms.ModelForm):
 
-    password = forms.CharField(label='パスワード', widget=forms.PasswordInput())
-    confirm_password = forms.CharField(label='パスワード再入力', widget=forms.PasswordInput())
+    password = forms.CharField(label='パスワード', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    confirm_password = forms.CharField(label='パスワード再入力', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     
     class Meta():
         model = Users
@@ -79,12 +79,14 @@ class DatePickerWidget(widgets.DateInput):
 
 class TravelRecordInsertForm(forms.ModelForm):
     #user_id = forms.IntegerField(widget=forms.HiddenInput)
-    destination_name = forms.CharField(label='旅行先')
-    date = forms.DateField(label='旅行した日',widget=DatePickerWidget)
-    TravelRecord = forms.CharField(label='記録', widget=forms.Textarea)
+    destination_name = forms.CharField(label='旅行先', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    date = forms.DateField(label='旅行した日',widget=DatePickerWidget(attrs={'class': 'form-control'}))
+    TravelRecord = forms.CharField(label='記録', widget=forms.Textarea(attrs={'class': 'form-control'}))
     picture = forms.ImageField(label='画像アップロード', required=False)
     #latitude = forms.FloatField()
     #longitude = forms.FloatField()
+    latitude = forms.FloatField(label='緯度', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    longitude = forms.FloatField(label='経度', widget=forms.TextInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = Destinations
@@ -93,12 +95,12 @@ class TravelRecordInsertForm(forms.ModelForm):
 
 class DestinationUpdateForm(forms.Form):
     #destination_id = forms.IntegerField(label='No.')
-    destination_name = forms.CharField(label='旅行先')
-    date = forms.DateField(label='旅行した日',widget=DatePickerWidget)
-    TravelRecord = forms.CharField(label='記録', widget=forms.Textarea)
+    destination_name = forms.CharField(label='旅行先', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    date = forms.DateField(label='旅行した日',widget=DatePickerWidget(attrs={'class': 'form-control'}))
+    TravelRecord = forms.CharField(label='記録', widget=forms.Textarea(attrs={'class': 'form-control'}))
+    latitude = forms.FloatField(label='緯度', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    longitude = forms.FloatField(label='経度', widget=forms.TextInput(attrs={'class': 'form-control'}))
     picture = forms.ImageField(label='画像アップロード', required=False)
-    latitude = forms.FloatField()
-    longitude = forms.FloatField()
 
     class Meta:
         model = Destinations
@@ -110,8 +112,8 @@ class DestinationDeleteForm(forms.Form):
 
 ###Todoリスト登録、編集、削除###
 class TodoListInsertForm(forms.ModelForm):
-    destination = forms.CharField(label='旅行先')
-    todo_list = forms.CharField(label='やりたいこと', max_length=500, widget=forms.Textarea)
+    destination = forms.CharField(label='旅行先', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    todo_list = forms.CharField(label='やりたいこと', max_length=500, widget=forms.Textarea(attrs={'class': 'form-control'}))
     #complete_flg = forms.BooleanField(blank=True, null=True)
 
     class Meta:
@@ -121,9 +123,9 @@ class TodoListInsertForm(forms.ModelForm):
 
 class TodoListUpdateForm(forms.Form):
     #destination_id = forms.IntegerField(label='No.')
-    destination = forms.CharField(label='旅行先')
-    todo_list = forms.CharField(label='やりたいこと', max_length=500, widget=forms.Textarea)
-    complete_flg = forms.BooleanField(label='完了')
+    destination = forms.CharField(label='旅行先', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    todo_list = forms.CharField(label='やりたいこと', max_length=500, widget=forms.Textarea(attrs={'class': 'form-control'}))
+    complete_flg = forms.BooleanField(label='完了', required=False)
 
     class Meta:
         model = TodoLists

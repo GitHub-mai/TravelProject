@@ -1,10 +1,30 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}旅行記録編集画面{{ block.super }}{% endblock %}
 {% block content %}
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div id='map'></div>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVWmrJ3ty7utzecOnva4f2QQ3ryVYsqeI&callback=initMap" async defer></script>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/insert_TravelRecord.css' %}">
+    
+    <script>
+        function confirmDelete(event) {
+            if (!confirm("本当に削除しますか？")) {
+                event.preventDefault();
+            }
+        }
+    </script>
+
+<div class="map-container" id='map'></div>
+    <!--<form method="POST" enctype="multipart/form-data">-->
+    <form action="{% url 'TravelApp:update_destination' destination.destination_id %}" method="post">
+
+    {% csrf_token %}
+
+    {% bootstrap_javascript jquery='full' %} 
+        <div class="form-wrapper">
+        <div class="form-container">
+        <div class="form-group">
+    
     <script>
         var map;
         var marker;
@@ -39,19 +59,43 @@
                 document.getElementById('id_latitude').value = latitude;
                 document.getElementById('id_longitude').value = longitude;
             }
-        
-
     </script>
 
+        <div class="form-group">
+            {{ update_form.destination_name.label_tag }}<br>
+            {{ update_form.destination_name }}
+        </div>
+        <div class="form-group">
+            {{ update_form.date.label_tag }}<br>
+            {{ update_form.date }}
+        </div>
+        <div class="form-group">
+            {{ update_form.TravelRecord.label_tag }}<br>
+            {{ update_form.TravelRecord }}
+        </div>
+        <div class="form-group">
+            {{ update_form.latitude.label_tag }}<br>
+            {{ update_form.latitude }}
+        </div>
+        <div class="form-group">
+            {{ update_form.longitude.label_tag }}<br>
+            {{ update_form.longitude }}
+        </div>
+        <div class="form-group">
+            {{ update_form.picture.label_tag }}<br>
+            {{ update_form.picture }}
+        </div>
+
             {% bootstrap_javascript jquery='full' %} 
-            {{ update_form.media }}
-            {{ update_form.as_p }}
-        <input type="submit" value="更新">
+            {{ update_form.media }}    
         {% if destination.picture %}
             <p><img src={{ destination.picture.url }}></img></p>
         {% endif %}
+
+        <button class="form-button" type="submit">更新</button>
     </form>
-    <p><a href="{% url 'TravelApp:delete_destination' destination_id=destination.destination_id %}">削除する</a></p>
+
+    <p><a href="{% url 'TravelApp:delete_destination' destination_id=destination.destination_id %}" class="next-page-link">削除画面へ</a></p>
 {% endblock %}
 
 

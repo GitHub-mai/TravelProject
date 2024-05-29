@@ -1,0 +1,85 @@
+body {
+    background-color: #f6efce; /* 任意の背景色を設定 */
+    margin: 0; /* 余白を削除 */
+}
+
+.custom-font {
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    color: rgb(0, 0, 0); /*テキストの色*/
+    text-shadow: 3px 3px 0 #f4f0f0; /* 横方向の影、縦方向の影、ぼかし量、影の色 */
+    text-align: center;
+    font-size: 80px; /* テキストのサイズを設定 */
+}
+
+/* テーブルのスタイル */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+/* セルのスタイル */
+th, td {
+    border: 1px solid #000000;
+    padding: 8px;
+    text-align: left;
+}
+
+/* 偶数行の背景色 */
+tr:nth-child(even) {
+    background-color: #cce3b4;
+}
+
+/* Custom checkbox styles */
+.custom-checkbox {
+    display: inline-block;
+    position: relative;
+    padding-left: 5px;
+    margin-right: 10px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    font-size: 22px;
+    user-select: none;
+}
+
+.custom-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.custom-checkbox .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #eee;
+    border-radius: 5px;
+    border: 1px solid #000; /* 枠の色を黒に設定 */
+}
+
+.custom-checkbox input:checked ~ .checkmark {
+    background-color: #eee; 
+}
+
+.custom-checkbox .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.custom-checkbox input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.custom-checkbox .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid rgb(0, 0, 0);
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}

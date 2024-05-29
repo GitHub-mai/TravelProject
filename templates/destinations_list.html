@@ -1,22 +1,32 @@
 {% extends 'base.html'%}
+{% load static %}
 {% block content %}
-<h1>旅行記録一覧</h1>
 
+<link href="https://fonts.googleapis.com/css2?family=Danfo&family=M+PLUS+Rounded+1c&family=Poetsen+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'css/destinations_list.css' %}">
+
+<div class="custom-font">
+<h1>旅行記録一覧</h1>
+</div>
 
 <table>
-    <tr>
-        <th>No.</th>
-        <th>旅行先</th>
-        <th>旅行した日</th>
-        <th>記録</th>
-    </tr>
-    {% for destination in destinations %}
-    <tr>
-        <td><a href="{% url 'TravelApp:update_destination' destination_id=destination.destination_id %}">{{ destination.destination_id }}</a></td>
-        <td>{{ destination.destination_name }}</td>
-        <td>{{ destination.date }}</td>
-        <td>{{ destination.TravelRecord }}</td>
-    </tr>
-    {% endfor %}
+    <thead>
+        <tr>
+            <th>No.</th>
+            <th>旅行先</th>
+            <th>旅行した日</th>
+            <th>記録</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for destination in destinations %}
+        <tr>
+            <td><a href="{% url 'TravelApp:update_destination' destination_id=destination.destination_id %}">{{ destination.destination_id }}</a></td>
+            <td>{{ destination.destination_name }}</td>
+            <td>{{ destination.date }}</td>
+            <td>{{ destination.TravelRecord }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
 </table>
 {% endblock %}

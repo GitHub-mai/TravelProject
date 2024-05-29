@@ -6,17 +6,20 @@
 {% endblock %}
 
 {% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Danfo&family=M+PLUS+Rounded+1c&family=Poetsen+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'css/user.css' %}">
 
-<div class="center-text">
-        <h1>マイページ</h1>
+<div class="custom-font">
+        <head>マイページ</head>
 </div>    
 
-<div class="center-button-container">
-        <button onclick="location.href='{% url 'TravelApp:insert_TravelRecord' %}'">旅行記録登録</button>
-        <button onclick="location.href='{% url 'TravelApp:destinations_list' %}'">旅行記録編集・削除</button>
-        <button onclick="location.href='{% url 'TravelApp:map' %}'">地図画面</button>
-        <button onclick="location.href='{% url 'TravelApp:Todo' %}'">Todoリスト</button>
-        <button onclick="location.href='{% url 'TravelApp:user_edit' %}'">ユーザー情報編集</button>
+<div class="button-container">
+<div class="button-group">
+        <button class="my-page-button" onclick="location.href='{% url 'TravelApp:insert_TravelRecord' %}'">旅行記録登録</button>
+        <button class="my-page-button" onclick="location.href='{% url 'TravelApp:destinations_list' %}'">旅行記録編集・削除</button>
+        <button class="my-page-button" onclick="location.href='{% url 'TravelApp:map' %}'">地図画面</button>
+        <button class="my-page-button" onclick="location.href='{% url 'TravelApp:Todo' %}'">Todoリスト</button>
+        <button class="my-page-button" onclick="location.href='{% url 'TravelApp:user_edit' %}'">ユーザー情報編集</button>
 </div>
 {% endblock %}
 

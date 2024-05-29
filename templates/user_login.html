@@ -1,13 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/form_style.css' %}">
-<div class="center-text">
+<link rel="stylesheet" type="text/css" href="{% static 'css/user_login.css' %}">
+<div class="login-wrapper">
+    <div class="login-container">
 
 <form method="POST">
     {% csrf_token %}  
+    <div class="form-group">
     {{ form.as_p }}
     <input type="hidden" name="next" value="{{ request.GET.next }}">
-    <input type="submit" value="ログイン">
+    <!--<input type="submit" value="ログイン">-->
+    <button class="login-button" type="submit">ログイン</button>
 </form>
 {% endblock %}

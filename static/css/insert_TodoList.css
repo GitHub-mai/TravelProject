@@ -1,0 +1,74 @@
+body {
+    background-color: #f6efce; /* 任意の背景色を設定 */
+    margin: 0; /* 余白を削除 */
+    height: 100vh;
+}
+
+/* フォームのコンテナ */
+.form-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.form-container {
+    width: 100%;
+    max-width: 700px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* コンテナ内の項目を水平方向に中央揃え */
+    gap: 10px; /* 項目間のスペースを設定 */
+}
+
+.form-control {
+    /*width: calc(100% - 16px);  パディングやボーダーのスペースを考慮 */
+    width: 100%;
+    padding: 3px;
+    border: 1px solid black;
+    border-radius: 2px; 
+    box-sizing: border-box;
+}
+
+.form-group label {
+    width: 100%;
+    margin-bottom: 2px;  /* ラベルの下のマージンを調整 */
+    text-align: left;
+}
+
+/* ボタンコンテナ */
+.button-container {
+    display: flex;
+    padding: 30px;
+    margin-left: 500px; /* ボタン全体の左側にマージンを追加 */
+}
+/* フォームボタン */
+.form-button {
+    width: 100%; /* ボタンの幅を100%に設定 */
+    max-width: 100px; /* ボタンの最大幅を設定 */
+    padding: 10px; /* ボタンの内側のスペースを設定 */
+    background-color: #88b1c2; /* ボタンの背景色を設定 */
+    color: white; /* ボタンの文字色を設定 */
+    border: none; /* ボタンの枠線を削除 */
+    border-radius: 5px; /* ボタンの角を丸くする */
+    cursor: pointer; /* ホバー時にカーソルをポインターに変更 */
+    margin-top: 20px;
+}
+
+/* リンクのスタイル */
+.next-page-link {
+    color: #1786b5; /* テキストの色 */
+    text-decoration: none; /* 下線を削除 */
+    font-weight: bold; /* 太字に設定 */
+}
+
+.next-page-link:hover {
+    text-decoration: underline; /* ホバー時に下線を追加 */
+}
+

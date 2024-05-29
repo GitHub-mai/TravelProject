@@ -1,20 +1,44 @@
 {% extends 'base.html'%}
+{% load static %}
 {% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/Todo_List.css' %}">
+
+<div class="custom-font">
 <h1>ToDoリスト</h1>
+</div>
+
 <table>
-    <tr>
-        <th>No.</th>
-        <th>旅行先</th>
-        <th>やりたいこと</th>
-        <th>完了</th>
-    </tr>
-    {% for todolist in todolists %}
-    <tr>
-        <td><a href="{% url 'TravelApp:update_TodoList' TodoList_id=todolist.TodoList_id %}">{{ todolist.TodoList_id }}</a></td>
-        <td>{{ todolist.destination }}</td>
-        <td>{{ todolist.todo_list }}</td>
-        <td><input type="checkbox" {% if todolist.complete_flg %} checked {% endif %}></td>
-    </tr>
-    {% endfor %}
+    <thead>
+        <tr>
+            <th>No.</th>
+            <th>旅行先</th>
+            <th>やりたいこと</th>
+            <th>完了</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        {% for todolist in todolists %}
+        <tr>
+            <td><a href="{% url 'TravelApp:update_TodoList' TodoList_id=todolist.TodoList_id %}">{{ todolist.TodoList_id }}</a></td>
+            <td>{{ todolist.destination }}</td>
+            <td>{{ todolist.todo_list }}</td>
+            <!--<td><input type="checkbox" {% if todolist.complete_flg %} checked {% endif %}></td>-->
+            <td class="checkbox-cell">            
+                {% if todolist.complete_flg %}
+                <label class="custom-checkbox">
+                    <input type="checkbox" checked disabled>
+                <span class="checkmark"></span>
+                {% else %}
+                <label class="custom-checkbox">
+                    <input type="checkbox" disabled>
+                <span class="checkmark"></span>
+                {% endif %}
+                
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
 </table>
 {% endblock %}

@@ -4,11 +4,18 @@
 {% block content %}
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVWmrJ3ty7utzecOnva4f2QQ3ryVYsqeI&callback=initMap" async defer></script>
 
-    <link rel="stylesheet" type="text/css" href="{% static 'picture_style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/picture_style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/insert_TravelRecord.css' %}">
 
+<div class="map-container" id='map'></div>
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        <div id='map'></div>
+
+    {% bootstrap_javascript jquery='full' %} 
+        <div class="form-wrapper">
+        <div class="form-container">
+        <div class="form-group">
+        
     <script>
         var map;
         var marker;
@@ -16,7 +23,7 @@
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
                 center: {lat: 0, lng: 0},
-                zoom: 2
+                zoom: 2.5
             });
 
             // マップ上でクリックされたときにピンを立てるイベントリスナーを追加
@@ -46,13 +53,36 @@
         }   
     </script>    
 
-            {% bootstrap_javascript jquery='full' %} 
+        <div class="form-group">
+            {{ insert_form.destination_name.label_tag }}<br>
+            {{ insert_form.destination_name }}
+        </div>
+        <div class="form-group">
+            {{ insert_form.date.label_tag }}<br>
+            {{ insert_form.date }}
+        </div>
+        <div class="form-group">
+            {{ insert_form.TravelRecord.label_tag }}<br>
+            {{ insert_form.TravelRecord }}
+        </div>
+        <div class="form-group">
+            {{ insert_form.latitude.label_tag }}<br>
+            {{ insert_form.latitude }}
+        </div>
+        <div class="form-group">
+            {{ insert_form.longitude.label_tag }}<br>
+            {{ insert_form.longitude }}
+        </div>
+        <div class="form-group">
+            {{ insert_form.picture.label_tag }}<br>
+            {{ insert_form.picture }}
+        </div>
+
             {{ insert_form.media }}
-            {{ insert_form.as_p }}
-
+            
         <img id="picture-preview" class="preview" src="#" alt="Picture Preview" style="display:none;"/>
-
-        <input type="submit" value="登録">
+    
+<button class="form-button" type="submit">登録</button>
 
     <script>
         document.querySelector('input[type="file"]').addEventListener('change', function(event) {

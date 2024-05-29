@@ -1,9 +1,22 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
+
+<link href="https://fonts.googleapis.com/css2?family=Danfo&family=M+PLUS+Rounded+1c&family=Poetsen+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'css/form_style.css' %}">
+
 <form method="POST" enctype="multipart/form_data">
     {% csrf_token %}  
+
+        <div class="form-wrapper">
+        <div class="form-container">
+        <div class="form-group">
+
     {{ user_edit_form.as_p }}
-    <input type="submit" value="ユーザー情報更新">
+    <!--<input type="submit" value="ユーザー情報更新">-->
+    <button class="form-button" type="submit">更新</button>
 </form>
-    <a href="{% url 'TravelApp:change_password' %}">パスワード変更</a>
+    <!--<a href="{% url 'TravelApp:change_password' %}">パスワード変更</a>-->
+    <p><a href="{% url 'TravelApp:change_password'%}" class="next-page-link">パスワード変更画面へ</a></p>
+
 {% endblock %}

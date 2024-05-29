@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-削除確認画面
+ユーザー情報登録完了画面
 {% endblock %}
 
 {% block content %}
@@ -16,24 +16,13 @@
     </script>
 
 <div class="custom-font">
-    <h1>本当に削除しますか？</h1>
+    <head>登録完了しました</head>
 </div>
-
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-            {{ delete_form.as_p }}
-    </form>
-    
+        <!--<button class="form-button" onclick="location.href='{% url 'TravelApp:change_password' %}'">パスワード変更画面へ</button>-->
+<!--
 <div class="center-text">
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-            {{ delete_form.as_p }}
-        <!--<input type="submit" value="削除する">-->
-        <button class="form-button" type="submit">削除</button>
-
         <button type="button" class="form-button" onclick="goBack()">戻る</button>
-
-    </form>
 </div>
+-->
 {% endblock %}
 

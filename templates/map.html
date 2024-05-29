@@ -1,17 +1,17 @@
 {% extends "base.html" %}
+{% load static %}
+
 {% block add_header %}
     <title>Google Map</title>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVWmrJ3ty7utzecOnva4f2QQ3ryVYsqeI&callback=initMap" async defer></script>
-    <style>
-        #map {
-            height: 100vw;
-            width: 100vw;
-        }
-    </style>
+
 {% endblock %}
 
 {% block content %}
-    <div id="map"></div>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/insert_TravelRecord.css' %}">
+
+    <div class="map-container" id='map'></div>
+    
     <script>
         function initMap() {
             var map = new google.maps.Map(document.getElementById('map'), {

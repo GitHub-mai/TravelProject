@@ -1,7 +1,9 @@
+
 #map{
     height: 50vw;
-    width: 80vw;
+    width: 100vw;
 }
+
 
 #header{
     display: flex;

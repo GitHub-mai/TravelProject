@@ -6,13 +6,15 @@
 {% endblock %}
 
 {% block content %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/form_style.css' %}">
-<div class="center-text">
-        <h1>Todo📝</h1>
+<link href="https://fonts.googleapis.com/css2?family=Danfo&family=M+PLUS+Rounded+1c&family=Poetsen+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'css/Todo.css' %}">
+<div class="custom-font">
+        <head>Todo📝</head>
 </div>
 
-<div class="center-button-container">
-        <button onclick="location.href='{% url 'TravelApp:insert_TodoList' %}'">Todoリスト登録</button>
-        <button onclick="location.href='{% url 'TravelApp:Todo_List' %}'">Todoリスト</button>
+<div class="button-container">
+<div class="button-group">
+        <button class="my-page-button" onclick="location.href='{% url 'TravelApp:insert_TodoList' %}'">Todoリスト登録</button>
+        <button class="my-page-button" onclick="location.href='{% url 'TravelApp:Todo_List' %}'">Todoリスト</button>
 </div>
 {% endblock %}

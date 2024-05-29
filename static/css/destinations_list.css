@@ -1,0 +1,30 @@
+body {
+    background-color: #f6efce; /* 任意の背景色を設定 */
+    margin: 0; /* 余白を削除 */
+}
+
+.custom-font {
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    color: rgb(0, 0, 0); /*テキストの色*/
+    text-shadow: 3px 3px 0 #f4f0f0; /* 横方向の影、縦方向の影、ぼかし量、影の色 */
+    text-align: center;
+    font-size: 80px; /* テキストのサイズを設定 */
+}
+
+/* テーブルのスタイル */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+/* セルのスタイル */
+th, td {
+    border: 1px solid #000000;
+    padding: 8px;
+    text-align: left;
+}
+
+/* 偶数行の背景色 */
+tr:nth-child(even) {
+    background-color: #cce3b4;
+}
