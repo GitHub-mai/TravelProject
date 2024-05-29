@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+削除完了画面
+{% endblock %}
+
+{% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Danfo&family=M+PLUS+Rounded+1c&family=Poetsen+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'css/form_style.css' %}">
+
+<div class="custom-font">
+    <head>削除しました</head>
+</div>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+            {{ delete_form.as_p }}
+    </form>
+    
+<div class="center-text">
+    <a href="{% url 'TravelApp:destinations_list' %}" class="next-page-link">Todoリスト一覧画面へ</a>
+</div>
+{% endblock %}
+
+

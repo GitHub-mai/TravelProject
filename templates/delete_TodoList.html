@@ -1,9 +1,39 @@
 {% extends "base.html" %}
-{% block title %}Todoリスト削除画面{{ block.super }}{% endblock %}
+{% load static %}
+
+{% block title %}
+Todoリスト削除画面
+{% endblock %}
+
 {% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Danfo&family=M+PLUS+Rounded+1c&family=Poetsen+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'css/form_style.css' %}">
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+<div class="custom-font">
+    <h1>本当に削除しますか？</h1>
+</div>
+
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
             {{ delete_form.as_p }}
-        <input type="submit" value="削除する">
+        <!--<input type="submit" value="削除する">-->
     </form>
+
+<div class="center-text">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+            {{ delete_form.as_p }}
+        <!--<input type="submit" value="削除する">-->
+        <button class="form-button" type="submit">削除</button>
+
+        <button type="button" class="form-button" onclick="goBack()">戻る</button>
+
+    </form>
+</div>
 {% endblock %}

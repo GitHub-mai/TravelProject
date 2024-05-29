@@ -383,9 +383,13 @@ def delete_TodoList(request, TodoList_id):
         delete_form = forms.TodoListDeleteForm(request.POST or None)
         if delete_form.is_valid():
             TodoLists.objects.get(TodoList_id=delete_form.cleaned_data['TodoList_id']).delete()
+            return redirect('TravelApp:delete_TodoList_completion')
     return render(
         request, 'delete_TodoList.html', context={
             'delete_form': delete_form
         }
     )
 
+def delete_TodoList_completion(request):
+    todolists = TodoLists.objects.all()
+    return render(request, 'delete_TodoList_completion.html', {'todolists': todolists})

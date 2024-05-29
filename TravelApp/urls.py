@@ -32,6 +32,7 @@ urlpatterns = [
     path('update_TodoList/<int:TodoList_id>', views.update_TodoList, name='update_TodoList'),
     path('update_TodoList_completion', views.update_TodoList_completion, name='update_TodoList_completion'),
     path('delete_TodoList/<int:TodoList_id>', views.delete_TodoList, name='delete_TodoList'),
+    path('delete_TodoList_completion', views.delete_TodoList_completion, name='delete_TodoList_completion'),
 
     path('user_edit', views.user_edit, name='user_edit'),
     path('user_edit_completion', views.user_edit_completion, name='user_edit_completion'),
