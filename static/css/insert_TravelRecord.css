@@ -67,6 +67,15 @@ body {
     margin-top: 20px;
 }
 
+/* カスタムフォントのスタイル */
+.custom-font {
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    color: rgb(0, 0, 0); /*テキストの色*/
+    text-shadow: 3px 3px 0 #f4f0f0; /* 横方向の影、縦方向の影、ぼかし量、影の色 */
+    text-align: center;
+    font-size: 80px; /* テキストのサイズを設定 */
+}
+
 /* リンクのスタイル */
 .next-page-link {
     color: #1786b5; /* テキストの色 */

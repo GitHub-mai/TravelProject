@@ -80,13 +80,13 @@ class DatePickerWidget(widgets.DateInput):
 class TravelRecordInsertForm(forms.ModelForm):
     #user_id = forms.IntegerField(widget=forms.HiddenInput)
     destination_name = forms.CharField(label='旅行先', widget=forms.TextInput(attrs={'class': 'form-control'}))
-    date = forms.DateField(label='旅行した日',widget=DatePickerWidget(attrs={'class': 'form-control'}))
+    date = forms.DateField(label='旅行した日',widget=DatePickerWidget(attrs={'class': 'form-control', 'readonly': 'readonly'}))
     TravelRecord = forms.CharField(label='記録', widget=forms.Textarea(attrs={'class': 'form-control'}))
     picture = forms.ImageField(label='画像アップロード', required=False)
     #latitude = forms.FloatField()
     #longitude = forms.FloatField()
-    latitude = forms.FloatField(label='緯度', widget=forms.TextInput(attrs={'class': 'form-control'}))
-    longitude = forms.FloatField(label='経度', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    latitude = forms.FloatField(label='緯度(地図上で場所を選択すると自動入力されます)', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    longitude = forms.FloatField(label='経度(地図上で場所を選択すると自動入力されます)', widget=forms.TextInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = Destinations
@@ -96,10 +96,10 @@ class TravelRecordInsertForm(forms.ModelForm):
 class DestinationUpdateForm(forms.Form):
     #destination_id = forms.IntegerField(label='No.')
     destination_name = forms.CharField(label='旅行先', widget=forms.TextInput(attrs={'class': 'form-control'}))
-    date = forms.DateField(label='旅行した日',widget=DatePickerWidget(attrs={'class': 'form-control'}))
+    date = forms.DateField(label='旅行した日',widget=DatePickerWidget(attrs={'class': 'form-control', 'readonly': 'readonly'}))
     TravelRecord = forms.CharField(label='記録', widget=forms.Textarea(attrs={'class': 'form-control'}))
-    latitude = forms.FloatField(label='緯度', widget=forms.TextInput(attrs={'class': 'form-control'}))
-    longitude = forms.FloatField(label='経度', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    latitude = forms.FloatField(label='緯度(地図上で場所を選択すると自動入力されます)', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    longitude = forms.FloatField(label='経度(地図上で場所を選択すると自動入力されます)', widget=forms.TextInput(attrs={'class': 'form-control'}))
     picture = forms.ImageField(label='画像アップロード', required=False)
 
     class Meta:
