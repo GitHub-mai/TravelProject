@@ -19,7 +19,7 @@
     </script>
 
 <div class="map-container" id='map'></div>  
-    <form method="POST" enctype="multipart/form-data">
+    <form method="POST" enctype="multipart/form-data", id="DestinationUpdateForm">
     <form action="{% url 'TravelApp:update_destination' destination.destination_id %}" method="post">
 
     {% csrf_token %}
@@ -137,9 +137,16 @@
             </div>
         {% endif %}
 
-    <button class="form-button" type="submit">登録</button>
-
-    <p><a href="{% url 'TravelApp:delete_destination' destination_id=destination.destination_id %}" class="next-page-link">削除画面へ</a></p>
+<div class="button-container">
+    <button class="form-button" type="submit">更新</button>
+    <button type="button" id="delete-button" class="delete-button">削除</button>
+    <!--<p><a href="{% url 'TravelApp:delete_destination' destination_id=destination.destination_id %}" class="next-page-link">削除画面へ</a></p>-->
+</div>
+    <script>
+        document.getElementById("delete-button").addEventListener("click", function() {
+            window.location.href = "{% url 'TravelApp:delete_destination' destination_id=destination.destination_id %}";
+        });
+    </script>
 
     <script>
         $(function() {

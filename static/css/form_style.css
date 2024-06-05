@@ -120,6 +120,7 @@ main {
     color: rgb(146, 182, 245); /* テキストの色を青に設定 */
     text-decoration: none; /* 下線を削除 */
     font-weight: bold; /* 太字に設定 */
+    margin-right: 50px
 }
 
 .next-page-link:hover {

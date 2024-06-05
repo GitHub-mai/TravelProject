@@ -39,7 +39,21 @@
             </div>
         </div>
         <!--<button class="form-button" type="submit">登録</button>-->
-        <button class="form-button" type="submit" class="btn btn-primary" id="submitBtn">登録</button>
+        <!--<button class="form-button" type="submit" class="btn btn-primary" id="submitBtn">登録</button>-->
+<!--
+        <div class="button-group">
+        <button type="submit">登録</button>
+-->
+<div class="button-container">
+    <button class="form-button" type="submit">更新</button>
+    <button type="button" id="back-button" class="back-button">戻る</button>
+</div>
+    <script>
+        document.getElementById("back-button").addEventListener("click", function() {
+            window.location.href = "{% url 'TravelApp:Todo' %}";
+        });
+    </script>
+
     </form>
 
     <script>

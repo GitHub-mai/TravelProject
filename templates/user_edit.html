@@ -20,16 +20,17 @@
 <div class="custom-font">
 <h1>ユーザー情報編集画面</h1>
 </div> 
-        <div class="form-wrapper">
-        <div class="form-container">
-        <div class="form-group"> 
+    <div class="form-wrapper">
+    <div class="form-container">
+    <div class="form-group"> 
 
     {{ user_edit_form.as_p }}
 
-    <button class="form-button" type="submit">更新</button>
-</form>
-
-    <p><a href="{% url 'TravelApp:change_password'%}" class="next-page-link">パスワード変更画面へ</a></p>
-
+    <div class="button-group">
+        <button type="submit">更新</button>
+        <a href="{% url 'TravelApp:change_password'%}" class="next-page-link">パスワード変更画面へ</a>
+        </form>    
+    </div>
+</body>
 {% endblock %}
 

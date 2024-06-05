@@ -9,6 +9,15 @@ body {
     height: 80%;  /* Googleマップの高さを設定 */
     margin-bottom: 20px;  /* フォームコンテナとの間隔 */
 }
+/* カスタムフォントのスタイル */
+.custom-font {
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    color: rgb(0, 0, 0); /*テキストの色*/
+    text-shadow: 3px 3px 0 #f4f0f0; /* 横方向の影、縦方向の影、ぼかし量、影の色 */
+    text-align: center;
+    font-size: 80px; /* テキストのサイズを設定 */
+    margin-top: 40px;
+}
 
 /* フォームのコンテナ */
 .form-wrapper {
@@ -47,35 +56,30 @@ body {
     margin-bottom: 2px;  /* ラベルの下のマージンを調整 */
     text-align: left;
 }
-
-/* ボタンコンテナ */
-.button-container {
+button, .next-page-link {
+    display: block;
+    width: 50%;
+    margin: 10px auto;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    white-space: nowrap;  /* Prevent line breaks */
     display: flex;
-    padding: 30px;
-    margin-left: 500px; /* ボタン全体の左側にマージンを追加 */
+    flex-direction: column;
+    align-items: center;
 }
-/* フォームボタン */
-.form-button {
-    width: 100%; /* ボタンの幅を100%に設定 */
-    max-width: 100px; /* ボタンの最大幅を設定 */
-    padding: 10px; /* ボタンの内側のスペースを設定 */
+
+.button-group button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
     background-color: #88b1c2; /* ボタンの背景色を設定 */
     color: white; /* ボタンの文字色を設定 */
-    border: none; /* ボタンの枠線を削除 */
-    border-radius: 5px; /* ボタンの角を丸くする */
-    cursor: pointer; /* ホバー時にカーソルをポインターに変更 */
-    margin-top: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-/* カスタムフォントのスタイル */
-.custom-font {
-    font-family: "M PLUS Rounded 1c", sans-serif;
-    color: rgb(0, 0, 0); /*テキストの色*/
-    text-shadow: 3px 3px 0 #f4f0f0; /* 横方向の影、縦方向の影、ぼかし量、影の色 */
-    text-align: center;
-    font-size: 80px; /* テキストのサイズを設定 */
-    margin-top: 40px;
-}
 
 /* リンクのスタイル */
 .next-page-link {

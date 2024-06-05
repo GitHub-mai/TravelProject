@@ -43,7 +43,19 @@
             {{ update_form.complete_flg.label_tag }}<br>
             {{ update_form.complete_flg }}
         </div>
+
+    <div class="button-container">
         <button class="form-button" type="submit">更新</button>
+        <button type="button" id="delete-button" class="delete-button">削除</button>
+        <!--<p><a href="{% url 'TravelApp:delete_TodoList' TodoList_id=todolist.TodoList_id %}">削除する</a></p>-->
+    </div>
+
     </form>
-    <p><a href="{% url 'TravelApp:delete_TodoList' TodoList_id=todolist.TodoList_id %}">削除する</a></p>
+    <!--<p><a href="{% url 'TravelApp:delete_TodoList' TodoList_id=todolist.TodoList_id %}">削除する</a></p>-->
+    <script>
+        document.getElementById("delete-button").addEventListener("click", function() {
+            window.location.href = "{% url 'TravelApp:delete_TodoList' TodoList_id=todolist.TodoList_id %}";
+        });
+    </script>
+
 {% endblock %}
