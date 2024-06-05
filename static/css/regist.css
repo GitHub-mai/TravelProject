@@ -1,29 +1,44 @@
 body {
-    background-color: #f6efce; /* 任意の背景色を設定 */
+    background-image: url('pexels-gya-den-768256-2303781.jpg');
+    background-size: cover; /* 画像を画面全体に拡大縮小 */
+    background-repeat: no-repeat; /* 画像の繰り返しを無効 */
+    background-position: center center; /* 画像を中央に配置 */
     margin: 0; /* 余白を削除 */
     height: 100vh;
 }
-/* メインコンテンツのスタイル */
-main {
-    display: flex;
-    justify-content: center; /* 水平方向に中央揃え */
-    align-items: center; /* 垂直方向に中央揃え */
-    height: calc(100vh - 60px); /* 画面全体の高さからヘッダーの高さを引く */
+.errorlist li, .error {
+    color: red; /* エラーメッセージの文字色を赤に設定 */
 }
 
+.helptext {
+    color: green; /* ヘルプテキストの文字色を緑に設定 */
+}
+
+/* カスタムフォントのスタイル */
+.custom-font {
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    color: rgb(0, 0, 0); /*テキストの色*/
+    text-shadow: 3px 3px 0 #fff; /* 横方向の影、縦方向の影、ぼかし量、影の色 */
+    text-align: center;
+    font-size: 80px; /* テキストのサイズを設定 */
+    margin-top: 40px;
+}
+
+
 /* フォームのコンテナ */
-.form-wrapper {
+.regist-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100%;
+    height: 80%;
 }
 
-.form-container {
-    width: 100%;
-    max-width: 700px;
-    padding: 10px;
+.regist-container {
+    width: 150%;
+    max-width: 440px;
+    height: 653px; /* 高さを指定 */
+    padding: 70px;
     border: 1px solid #ccc;
     border-radius: 10px;
     background-color: #fff;
@@ -31,47 +46,28 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center; /* コンテナ内の項目を水平方向に中央揃え */
-    gap: 10px; /* 項目間のスペースを設定 */
-}
-
-.form-control {
-    /*width: calc(100% - 16px);  パディングやボーダーのスペースを考慮 */
-    width: 100%;
-    padding: 3px;
-    border: 1px solid black;
-    border-radius: 2px; 
-    box-sizing: border-box;
+    gap: 20px; /* 項目間のスペースを設定 */
 }
 
 /* フォームグループ */
-.form-group {
-    width: 50%;
+.regist-group {
+    width: 100%;
     display: flex;
     flex-direction: column; /* 項目を縦に並べる */
     align-items: flex-start; /* 各入力フィールドを左揃え */
     margin-bottom: 30px;
 }
-
 /* ラベルと入力欄を縦に並べる */
-.form-group label, .form-group input {
-    width: 170%; /* ラベルと入力欄の幅を設定 */
+.regist-group label, .regist-group input {
+    width: 100%; /* ラベルと入力欄の幅を設定 */
     text-align: left; /* テキストを左揃え */
 }
 
-.form-group label {
-    margin-bottom: -20px; /* ラベルと入力欄の間のスペース*/
+.regist-group label {
+    margin-bottom: 10px; /* ラベルと入力欄の間のスペース*/
 }
 
-.form-control {
-    /*width: calc(100% - 16px);  パディングやボーダーのスペースを考慮 */
-    width: 100%;
-    padding: 8px;
-    border: 1px solid black;
-    border-radius: 2px; 
-    box-sizing: border-box;
-}
-
-/* フォームボタン */
+/* ログインボタン */
 .form-button {
     width: 100%; /* ボタンの幅を100%に設定 */
     max-width: 100px; /* ボタンの最大幅を設定 */
@@ -82,48 +78,3 @@ main {
     border-radius: 5px; /* ボタンの角を丸くする */
     cursor: pointer; /* ホバー時にカーソルをポインターに変更 */
 }
-
-/* カスタムフォントのスタイル */
-.custom-font {
-    font-family: "M PLUS Rounded 1c", sans-serif;
-    color: rgb(0, 0, 0); /*テキストの色*/
-    text-shadow: 3px 3px 0 #f4f0f0; /* 横方向の影、縦方向の影、ぼかし量、影の色 */
-    text-align: center;
-    font-size: 80px; /* テキストのサイズを設定 */
-}
-
-.center-text {
-    text-align: center;
-    font-size: 24px; /* テキストのサイズを設定 */
-    margin-top: 200px; /* 上部にマージンを追加して位置を下げる */
-}
-
-.center-block {
-    width: 50%;
-    margin: 0 auto;
-    text-align: center;
-}
-
-
-.center-button-container button {
-    margin: 0 10px; /* ボタンの左右に10pxのマージンを追加 */
-}
-
-.center-form {
-    width: 300px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-/* リンクのスタイル */
-.next-page-link {
-    color: rgb(146, 182, 245); /* テキストの色を青に設定 */
-    text-decoration: none; /* 下線を削除 */
-    font-weight: bold; /* 太字に設定 */
-}
-
-.next-page-link:hover {
-    text-decoration: underline; /* ホバー時に下線を追加 */
-}
-
-

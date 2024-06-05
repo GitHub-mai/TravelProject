@@ -1,16 +1,47 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/user_login.css' %}">
-<div class="login-wrapper">
-    <div class="login-container">
+<head>
+    <meta charset="UTF-8">
+    <title>ログイン画面</title>
+</head>
 
-<form method="POST">
-    {% csrf_token %}  
-    <div class="form-group">
-    {{ form.as_p }}
-    <input type="hidden" name="next" value="{{ request.GET.next }}">
-    <!--<input type="submit" value="ログイン">-->
-    <button class="login-button" type="submit">ログイン</button>
-</form>
+<link href="https://fonts.googleapis.com/css2?family=Danfo&family=M+PLUS+Rounded+1c&family=Poetsen+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'css/user_login.css' %}">
+
+        <form method="POST">
+            {% csrf_token %}
+
+<div class="custom-font">
+<h1>ログイン画面</h1>
+</div>
+
+    <div class="login-wrapper">
+    <div class="login-container">
+    <div class="login-group">
+
+<body>
+            {% if login_form.non_field_errors %}
+                <div class="error">{{ login_form.non_field_errors }}</div>
+            {% endif %}
+            <div class="form-group">
+                <label for="{{ login_form.email.id_for_label }}">{{ login_form.email.label }}</label>
+                {{ login_form.email }}
+                {% for error in login_form.email.errors %}
+                    <div class="error">{{ error }}</div>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="{{ login_form.password.id_for_label }}">{{ login_form.password.label }}</label>
+                {{ login_form.password }}
+                {% for error in login_form.password.errors %}
+                    <div class="error">{{ error }}</div>
+                {% endfor %}
+            </div>
+            <input type="hidden" name="next" value="{{ request.GET.next }}">
+
+            <button class="login-button" type="submit">ログイン</button>
+        </form>
+    </div>
+</body>
 {% endblock %}

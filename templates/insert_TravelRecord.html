@@ -1,23 +1,25 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}旅行記録投稿画面{{ block.super }}{% endblock %}
+{% block title %}旅行記録投稿画面{% endblock %}
 {% block content %}
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVWmrJ3ty7utzecOnva4f2QQ3ryVYsqeI&callback=initMap" async defer></script>
 
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVWmrJ3ty7utzecOnva4f2QQ3ryVYsqeI&callback=initMap" async defer></script>
     <link rel="stylesheet" type="text/css" href="{% static 'css/picture_style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/insert_TravelRecord.css' %}">
 
-<div class="map-container" id='map'></div>
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>    
 
+<div class="map-container" id='map'></div>
+<!--<form method="post" id="TravelRecordInsertForm">-->
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
     {% bootstrap_javascript jquery='full' %} 
         <div class="form-wrapper">
         <div class="form-container">
         <div class="form-group">
-<div class="custom-font">
-<h1>旅行記録登録画面</h1>
-</div>        
+
     <script>
         var map;
         var marker;
@@ -52,39 +54,78 @@
             // フォームの入力フィールドに緯度と経度を設定
             document.getElementById('id_latitude').value = latitude;
             document.getElementById('id_longitude').value = longitude;
-        }   
+        } 
+            document.addEventListener('DOMContentLoaded', function() {
+                if (typeof google !== 'undefined' && google.maps && typeof google.maps.Map === 'function') {
+                    initMap();
+                } else {
+                    const script = document.createElement('script');
+                    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyAVWmrJ3ty7utzecOnva4f2QQ3ryVYsqeI&callback=initMap`;
+                    document.body.appendChild(script);
+                }
+            });
     </script>    
 
-        <div class="form-group">
-            {{ insert_form.destination_name.label_tag }}<br>
-            {{ insert_form.destination_name }}
-        </div>
-        <div class="form-group">
-            {{ insert_form.date.label_tag }}<br>
-            {{ insert_form.date }}
-        </div>
-        <div class="form-group">
-            {{ insert_form.TravelRecord.label_tag }}<br>
-            {{ insert_form.TravelRecord }}
-        </div>
-        <div class="form-group">
-            {{ insert_form.latitude.label_tag }}<br>
-            {{ insert_form.latitude }}
-        </div>
-        <div class="form-group">
-            {{ insert_form.longitude.label_tag }}<br>
-            {{ insert_form.longitude }}
-        </div>
+<div class="custom-font">
+<h1>旅行記録登録画面</h1>
+</div>  
+
+            <div class="form-group">
+                <label for="{{ insert_form.destination_name.id_for_label }}">{{ insert_form.destination_name.label }}</label>
+                {{ insert_form.destination_name }}
+                <div class="error-message" style="color: red;">
+                    {% for error in insert_form.destination_name.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="{{ insert_form.date.id_for_label }}">{{ insert_form.date.label }}</label>
+                {{ insert_form.date }}
+                <div class="error-message" style="color: red;">
+                    {% for error in insert_form.date.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="{{ insert_form.TravelRecord.id_for_label }}">{{ insert_form.TravelRecord.label }}</label>
+                {{ insert_form.TravelRecord }}
+                <div class="error-message" style="color: red;">
+                    {% for error in insert_form.TravelRecord.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="{{ insert_form.latitude.id_for_label }}">{{ insert_form.latitude.label }}</label>
+                {{ insert_form.latitude }}
+                <div class="error-message" style="color: red;">
+                    {% for error in insert_form.latitude.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="{{ insert_form.longitude.id_for_label }}">{{ insert_form.longitude.label }}</label>
+                {{ insert_form.longitude }}
+                <div class="error-message" style="color: red;">
+                    {% for error in insert_form.longitude.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            </div>
         <div class="form-group">
             {{ insert_form.picture.label_tag }}<br>
             {{ insert_form.picture }}
         </div>
-
             {{ insert_form.media }}
             
         <img id="picture-preview" class="preview" src="#" alt="Picture Preview" style="display:none;"/>
     
-<button class="form-button" type="submit">登録</button>
+<!--<button class="form-button" type="submit">登録</button>-->
+            <button class="form-button" type="submit" class="btn btn-primary" id="submitBtn">登録</button>
 
     <script>
         document.querySelector('input[type="file"]').addEventListener('change', function(event) {
@@ -101,8 +142,32 @@
         });
     </script>
 
-    </form>
+    <script>
+        $(function() {
+            $('#TravelRecordInsertForm').on('submit', function(event) {
+                let isValid = true;
+                $(this).find('input[required], textarea[required]').each(function() {
+                    if (!$(this).val().trim()) {
+                        isValid = false;
+                        $(this).next('.error-message').text('適切な入力をしてください。').show();
+                    } else {
+                        $(this).next('.error-message').hide();
+                    }
+                });
 
-    {% endblock %}
+                if (!isValid) {
+                    event.preventDefault();
+                }
+            });
 
-
+            $('#TravelRecordInsertForm').find('input[required], textarea[required]').on('input', function() {
+                if ($(this).val().trim()) {
+                    $(this).next('.error-message').hide();
+                } else {
+                    $(this).next('.error-message').text('適切な入力をしてください。').show();
+                }
+            });
+        });
+    </script>
+</form>
+{% endblock %}

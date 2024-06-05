@@ -15,6 +15,7 @@ from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 
 class HomeView(TemplateView):
     template_name = 'home.html'
@@ -29,12 +30,10 @@ def regist(request):
         form = RegistForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, '登録完了しました')
             return redirect('TravelApp:regist_completion')
     else:
         form = RegistForm()
     return render(request, 'regist.html', {'form': form})
-
 '''
 class UserLoginView(FormView):
     template_name = 'user_login.html'
@@ -51,13 +50,55 @@ class UserLoginView(FormView):
             return redirect(next_url)
         return redirect('TravelApp:home')
 '''
+
 def regist_completion(request):
     return render(request, 'regist_completion.html')
 
+'''
 class UserLoginView(LoginView):
     template_name = 'user_login.html'
     authentication_form = UserLoginForm
+'''
+
+def user_login(request):
+    if request.method == 'POST':
+        login_form = UserLoginForm(request.POST)
+        if login_form.is_valid():
+            email = login_form.cleaned_data.get('email')
+            password = login_form.cleaned_data.get('password')
+            user = Users.objects.get(email=email)
+            user = authenticate(request, username=email, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('TravelApp:user')
+    else:
+        login_form = UserLoginForm()
+    return render(request, 'user_login.html', {'login_form': login_form})
+
+
+'''
+def user_login(request):
+    login_form = UserLoginForm(request.POST or None)
+    error_message = None
+    if login_form.is_valid():
+        username = login_form.cleaned_data.get('username')
+        password = login_form.cleaned_data.get('password')
+        user = authenticate(username=username, password=password)
+        if user:
+            if user.is_active:
+                login(request, user)
+                return redirect('TravelApp:user')
+            else:
+                return HttpResponse('アカウントがアクティブでない')
+        else:
+            return HttpResponse('ユーザーが存在しません')
+            error_message = 'ユーザー名またはパスワードが一致しません'
     
+    return render(request, 'user_login.html', context={
+        'login_form': login_form,
+        'error' : error_message
+    })
+'''    
 class UserLogoutView(LogoutView):
     def get(self, request, *args, **kwargs):
         logout(request)
@@ -197,6 +238,7 @@ def update_destination(request, destination_id):
             'destination': destination
         }
     )
+
 '''
 def update_destination(request, destination_id):
     destination = Destinations.objects.get(destination_id=destination_id)

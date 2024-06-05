@@ -11,13 +11,12 @@ body {
 /* カスタムフォントのスタイル */
 .custom-font {
     font-family: "M PLUS Rounded 1c", sans-serif;
-    color: rgb(255, 204, 0); /*テキストの色*/
+    color: rgb(0, 0, 0); /*テキストの色*/
     text-shadow: 3px 3px 0 #fff; /* 横方向の影、縦方向の影、ぼかし量、影の色 */
     text-align: center;
     font-size: 80px; /* テキストのサイズを設定 */
-    margin-top: 200px; /* 上部にマージンを追加して位置を下げる */
+    margin-top: 40px;
 }
-
 /* メインコンテンツのスタイル */
 main {
     display: flex;
@@ -39,7 +38,7 @@ main {
 .login-container {
     width: 100%;
     max-width: 320px;
-    height: 350px; /* 高さを指定 */
+    height: 390px; /* 高さを指定 */
     padding: 70px;
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -53,11 +52,11 @@ main {
 
 /* フォームグループ */
 .form-group {
-    width: 90%;
+    width: 100%;
     display: flex;
     flex-direction: column; /* 項目を縦に並べる */
     align-items: flex-start; /* 各入力フィールドを左揃え */
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 /* ラベルと入力欄を縦に並べる */
@@ -82,3 +81,6 @@ main {
     cursor: pointer; /* ホバー時にカーソルをポインターに変更 */
 }
 
+.error {
+    color: red; /* エラーメッセージの文字色を赤に設定 */
+}

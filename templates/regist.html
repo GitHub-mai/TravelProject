@@ -2,23 +2,46 @@
 {% load static %}
 {% block content %}
 
+<head>
+    <meta charset="UTF-8">
+    <title>ユーザー登録画面</title>
+    <style>
+        .errorlist {
+            color: red;
+        }
+    </style>
+</head>
+
 <link href="https://fonts.googleapis.com/css2?family=Danfo&family=M+PLUS+Rounded+1c&family=Poetsen+One&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{% static 'css/regist.css' %}">
- 
+
+    <form method="post">
+        {% csrf_token %}
+
 <div class="custom-font">
 <h1>ユーザー登録画面</h1>
 </div>
 
-<form method="POST">
+        <div class="regist-wrapper">
+        <div class="regist-container">
+        <div class="regist-group">  
+<body>
 
-    {% csrf_token %}  
+        {{ form.non_field_errors }}
+        {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}
+                    <small class="helptext">{{ field.help_text }}</small>
+                {% endif %}
+                {% for error in field.errors %}
+                    <div class="error">{{ error }}</div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        <button class="form-button" type="submit">登録</button>
+    </form>
+</body>
 
-        <div class="form-wrapper">
-        <div class="form-container">
-        <div class="form-group">
-
-    {{ form.as_p }}
-    <!--<input type="submit" value="ユーザー登録">-->
-    <button class="form-button" type="submit">登録</button>
-</form>
 {% endblock %}

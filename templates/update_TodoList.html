@@ -1,17 +1,48 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Todoリスト編集画面{{ block.super }}{% endblock %}
+{% block title %}Todoリスト編集画面{% endblock %}
 {% block content %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/update_TodoList.css' %}">
 
-    <form method="POST" enctype="multipart/form-data">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>    
+
+    <!--<form method="POST" enctype="multipart/form-data">-->
+    <form method="post" id="TodoListUpdateForm">
         {% csrf_token %}
         <div class="form-wrapper">
         <div class="form-container">
         <div class="form-group">
+    
+<div class="custom-font">
+<h1>Todoリスト編集画面</h1>
+</div>   
+            <!--{{ update_form.as_p }}-->
 
-            {{ update_form.as_p }}
+        <div class="form-group">
+            <label for="{{ update_form.destination.id_for_label }}">{{ update_form.destination.label }}</label>
+            {{ update_form.destination }}
+            <div class="error-message" style="color: red;">
+                {% for error in update_form.destination.errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="{{ update_form.todo_list.id_for_label }}">{{ update_form.todo_list.label }}</label>
+            {{ update_form.todo_list }}
+            <div class="error-message" style="color: red;">
+                {% for error in update_form.todo_list.errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ update_form.complete_flg.label_tag }}<br>
+            {{ update_form.complete_flg }}
+        </div>
         <button class="form-button" type="submit">更新</button>
     </form>
     <p><a href="{% url 'TravelApp:delete_TodoList' TodoList_id=todolist.TodoList_id %}">削除する</a></p>

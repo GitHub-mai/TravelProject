@@ -87,4 +87,20 @@ body {
     text-decoration: underline; /* ホバー時に下線を追加 */
 }
 
+.btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+}
 
+.btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.error-message {
+    color: red;
+}

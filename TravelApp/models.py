@@ -21,8 +21,8 @@ class UserManager(BaseUserManager):
 
 class Users(AbstractBaseUser, PermissionsMixin):
     user_id = models.AutoField(primary_key=True)
-    username = models.CharField(max_length=150, default='')
-    email = models.EmailField(max_length=255, unique=True)
+    username = models.CharField(verbose_name="ユーザーネーム", max_length=150, default='')
+    email = models.EmailField(verbose_name="メールアドレス", max_length=255, unique=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     create_at = models.DateTimeField(verbose_name="登録日時", auto_now_add=True)

@@ -1,10 +1,14 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}旅行記録編集画面{{ block.super }}{% endblock %}
+{% block title %}旅行記録編集画面{% endblock %}
 {% block content %}
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVWmrJ3ty7utzecOnva4f2QQ3ryVYsqeI&callback=initMap" async defer></script>
 
-    <link rel="stylesheet" type="text/css" href="{% static 'css/insert_TravelRecord.css' %}">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVWmrJ3ty7utzecOnva4f2QQ3ryVYsqeI&callback=initMap" async defer></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/picture_style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/update_destination.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>    
     
     <script>
         function confirmDelete(event) {
@@ -14,19 +18,16 @@
         }
     </script>
 
-<div class="map-container" id='map'></div>
-    <!--<form method="POST" enctype="multipart/form-data">-->
+<div class="map-container" id='map'></div>  
+    <form method="POST" enctype="multipart/form-data">
     <form action="{% url 'TravelApp:update_destination' destination.destination_id %}" method="post">
 
     {% csrf_token %}
-
     {% bootstrap_javascript jquery='full' %} 
         <div class="form-wrapper">
         <div class="form-container">
         <div class="form-group">
-<div class="custom-font">
-<h1>旅行記録編集画面</h1>
-</div>  
+
     <script>
         var map;
         var marker;
@@ -61,44 +62,111 @@
                 document.getElementById('id_latitude').value = latitude;
                 document.getElementById('id_longitude').value = longitude;
             }
+            document.addEventListener('DOMContentLoaded', function() {
+                if (typeof google !== 'undefined' && google.maps && typeof google.maps.Map === 'function') {
+                    initMap();
+                } else {
+                    const script = document.createElement('script');
+                    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyAVWmrJ3ty7utzecOnva4f2QQ3ryVYsqeI&callback=initMap`;
+                    document.body.appendChild(script);
+                }
+            });
     </script>
 
-        <div class="form-group">
-            {{ update_form.destination_name.label_tag }}<br>
-            {{ update_form.destination_name }}
-        </div>
-        <div class="form-group">
-            {{ update_form.date.label_tag }}<br>
-            {{ update_form.date }}
-        </div>
-        <div class="form-group">
-            {{ update_form.TravelRecord.label_tag }}<br>
-            {{ update_form.TravelRecord }}
-        </div>
-        <div class="form-group">
-            {{ update_form.latitude.label_tag }}<br>
-            {{ update_form.latitude }}
-        </div>
-        <div class="form-group">
-            {{ update_form.longitude.label_tag }}<br>
-            {{ update_form.longitude }}
-        </div>
+<div class="custom-font">
+<h1>旅行記録編集画面</h1>
+</div>  
+            <div class="form-group">
+                <label for="{{ update_form.destination_name.id_for_label }}">{{ update_form.destination_name.label }}</label>
+                {{ update_form.destination_name }}
+                <div class="error-message" style="color: red;">
+                    {% for error in update_form.destination_name.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="{{ update_form.date.id_for_label }}">{{ update_form.date.label }}</label>
+                {{ update_form.date }}
+                <div class="error-message" style="color: red;">
+                    {% for error in update_form.date.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="{{ update_form.TravelRecord.id_for_label }}">{{ update_form.TravelRecord.label }}</label>
+                {{ update_form.TravelRecord }}
+                <div class="error-message" style="color: red;">
+                    {% for error in update_form.TravelRecord.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="{{ update_form.latitude.id_for_label }}">{{ update_form.latitude.label }}</label>
+                {{ update_form.latitude }}
+                <div class="error-message" style="color: red;">
+                    {% for error in update_form.latitude.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="{{ update_form.longitude.id_for_label }}">{{ update_form.longitude.label }}</label>
+                {{ update_form.longitude }}
+                <div class="error-message" style="color: red;">
+                    {% for error in update_form.longitude.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+       
         <div class="form-group">
             {{ update_form.picture.label_tag }}<br>
             {{ update_form.picture }}
         </div>
-
+        
             {% bootstrap_javascript jquery='full' %} 
             {{ update_form.media }}    
+       
+    <div class="form-group">
         {% if destination.picture %}
-            <p><img src={{ destination.picture.url }}></img></p>
+            <div class="image-container">
+                <p><img id="picture-preview" src="{{ destination.picture.url }}" alt="Picture Preview"></p>
+            </div>
         {% endif %}
 
-        <button class="form-button" type="submit">更新</button>
-    </form>
+    <button class="form-button" type="submit">登録</button>
 
     <p><a href="{% url 'TravelApp:delete_destination' destination_id=destination.destination_id %}" class="next-page-link">削除画面へ</a></p>
+
+    <script>
+        $(function() {
+            $('#DestinationUpdateForm').on('submit', function(event) {
+                let isValid = true;
+                $(this).find('input[required], textarea[required]').each(function() {
+                    if (!$(this).val().trim()) {
+                        isValid = false;
+                        $(this).next('.error-message').text('適切な入力をしてください。').show();
+                    } else {
+                        $(this).next('.error-message').hide();
+                    }
+                });
+
+                if (!isValid) {
+                    event.preventDefault();
+                }
+            });
+
+            $('#DestinationUpdateForm').find('input[required], textarea[required]').on('input', function() {
+                if ($(this).val().trim()) {
+                    $(this).next('.error-message').hide();
+                } else {
+                    $(this).next('.error-message').text('適切な入力をしてください。').show();
+                }
+            });
+        });
+    </script>
+</form>
 {% endblock %}
-
-
-

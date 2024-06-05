@@ -1,0 +1,15 @@
+<!-- templates/widgets/datepicker.html -->
+<input type="{{ widget.type }}" name="{{ widget.name }}" id="{{ widget.attrs.id }}" value="{{ widget.value|stringformat:'s' }}" {% include "django/forms/widgets/attrs.html" %}>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const dateField = document.getElementById('{{ widget.attrs.id }}');
+        if (dateField) {
+            $(dateField).datepicker({
+                dateFormat: 'yy/mm/dd',
+                onSelect: function(dateText) {
+                    dateField.value = dateText;
+                }
+            });
+        }
+    });
+</script>
