@@ -69,3 +69,4 @@ function placeMarker(location) {
     document.getElementById('id_latitude').value = location.lat();
     document.getElementById('id_longitude').value = location.lng();
 }
+

@@ -118,7 +118,6 @@ class UserView(LoginRequiredMixin, TemplateView):
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
 
-
 ###ユーザー情報、パスワード変更###
 @login_required
 def user_edit(request):

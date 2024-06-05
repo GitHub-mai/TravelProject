@@ -9,7 +9,6 @@ from django.core.validators import EmailValidator
 from django.contrib.auth import authenticate
 
 ###ログイン機能、ユーザー情報編集、パスワード変更###
-
 class RegistForm(UserCreationForm):
     #username = forms.CharField(label='名前', widget=forms.TextInput(attrs={'class': 'form-control'}))
     #email = forms.EmailField(label='メールアドレス', widget=forms.TextInput(attrs={'class': 'form-control'}))

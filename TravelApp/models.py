@@ -36,7 +36,6 @@ class Users(AbstractBaseUser, PermissionsMixin):
     def get_absolute_url(self):
         return reverse_lazy('TravelApp:home')
 
-
 class Destinations(models.Model):
     destination_id = models.AutoField(primary_key=True)
     user_id = models.ForeignKey(Users, db_column='user_id', on_delete=models.CASCADE, max_length=150, blank=True, null=True)

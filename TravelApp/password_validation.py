@@ -31,3 +31,4 @@ class CustomPasswordValidator:
             'パスワードは8文字以上であり、'
             '大文字、小文字、数字を含める必要があります。'
         )
+
