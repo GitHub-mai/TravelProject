@@ -52,19 +52,35 @@ body {
 .button-group {
     display: flex;
     justify-content: center;
-    gap: 10px;
-
+    align-items: center;
+    padding: 30px;
+    gap: 100px;
 }
-.button-group button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
+/* フォームボタン */
+.form-button {
+    width: 100%; /* ボタンの幅を100%に設定 */
+    max-width: 100px; /* ボタンの最大幅を設定 */
+    padding: 10px; /* ボタンの内側のスペースを設定 */
     background-color: #88b1c2; /* ボタンの背景色を設定 */
     color: white; /* ボタンの文字色を設定 */
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    border: none; /* ボタンの枠線を削除 */
+    border-radius: 5px; /* ボタンの角を丸くする */
+    cursor: pointer; /* ホバー時にカーソルをポインターに変更 */
+    margin-top: 20px;
+    margin-left: 70px;
 }
-
+.user-button {
+    width: 100%; /* ボタンの幅を100%に設定 */
+    max-width: 120px; /* ボタンの最大幅を設定 */
+    padding: 10px; /* ボタンの内側のスペースを設定 */
+    background-color: #88b1c2; /* ボタンの背景色を設定 */
+    color: white; /* ボタンの文字色を設定 */
+    border: none; /* ボタンの枠線を削除 */
+    border-radius: 5px; /* ボタンの角を丸くする */
+    cursor: pointer; /* ホバー時にカーソルをポインターに変更 */
+    margin-top: 20px;
+    margin-left: 30px;
+}
 /* カスタムフォントのスタイル */
 .custom-font {
     font-family: "M PLUS Rounded 1c", sans-serif;

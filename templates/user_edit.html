@@ -26,11 +26,25 @@
 
     {{ user_edit_form.as_p }}
 
-    <div class="button-group">
-        <button type="submit">更新</button>
-        <a href="{% url 'TravelApp:change_password'%}" class="next-page-link">パスワード変更画面へ</a>
+<div class="button-container">
+    <button type="button" id="user-button" class="user-button">マイページへ</button>
+    <button class="form-button" type="submit">更新</button>
+    <button type="button" id="passwordchange-button" class="passwordchange-button">パスワード変更画面へ</button>
+    <!--<a href="{% url 'TravelApp:change_password'%}" class="next-page-link">パスワード変更画面へ</a>-->
+</div>
+    <script>
+        document.getElementById("user-button").addEventListener("click", function() {
+            window.location.href = "{% url 'TravelApp:user' %}";
+        });
+    </script>
+
+    <script>
+        document.getElementById("passwordchange-button").addEventListener("click", function() {
+            window.location.href = "{% url 'TravelApp:change_password' %}";
+        });
+    </script>
+
         </form>    
-    </div>
-</body>
+    </body>
 {% endblock %}
 

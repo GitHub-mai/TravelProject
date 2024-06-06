@@ -79,15 +79,13 @@
                     {% endfor %}
                 </div>
             </div>
+            
             <div class="form-group">
                 <label for="{{ insert_form.date.id_for_label }}">{{ insert_form.date.label }}</label>
                 {{ insert_form.date }}
-                <div class="error-message" style="color: red;">
-                    {% for error in insert_form.date.errors %}
-                        <p>{{ error }}</p>
-                    {% endfor %}
-                </div>
+                <div id="date-error" style="color: red; display: none;">日付を選択してください</div>
             </div>
+
             <div class="form-group">
                 <label for="{{ insert_form.TravelRecord.id_for_label }}">{{ insert_form.TravelRecord.label }}</label>
                 {{ insert_form.TravelRecord }}
@@ -126,8 +124,16 @@
     
             <!--<button class="form-button" type="submit">登録</button>-->
             <!--<button class="form-button" type="submit" class="btn btn-primary" id="submitBtn">登録</button>-->
-            <div class="button-group">
-            <button type="submit">登録</button>
+<div class="button-container">
+    <button type="button" id="user-button" class="user-button">マイページへ</button>
+    <button class="form-button" type="submit">登録</button>
+</div>
+    <script>
+        document.getElementById("user-button").addEventListener("click", function() {
+            window.location.href = "{% url 'TravelApp:user' %}";
+        });
+    </script>
+
     <script>
         document.querySelector('input[type="file"]').addEventListener('change', function(event) {
             const file = event.target.files[0];
@@ -144,13 +150,29 @@
     </script>
 
     <script>
+        document.getElementById('TravelRecordInsertForm').addEventListener('submit', function(event) {
+            var selectedDate = document.getElementById('id_date').value;
+            if (!selectedDate) {
+                event.preventDefault(); // フォームの送信をキャンセル
+                document.getElementById('date-error').style.display = 'block'; // エラーメッセージを表示
+            }
+        });
+    </script>
+
+    <script>
         $(function() {
             $('#TravelRecordInsertForm').on('submit', function(event) {
                 let isValid = true;
                 $(this).find('input[required], textarea[required]').each(function() {
                     if (!$(this).val().trim()) {
                         isValid = false;
-                        $(this).next('.error-message').text('適切な入力をしてください。').show();
+                        let errorMessage = '適切な入力をしてください。';
+                        if ($(this).attr('id') === 'id_latitude') {
+                            errorMessage = '地図上で場所を選択してください。';
+                        } else if ($(this).attr('id') === 'id_longitude') {
+                            errorMessage = '地図上で場所を選択してください。';
+                        }
+                        $(this).next('.error-message').text(errorMessage).show();
                     } else {
                         $(this).next('.error-message').hide();
                     }
@@ -165,10 +187,19 @@
                 if ($(this).val().trim()) {
                     $(this).next('.error-message').hide();
                 } else {
-                    $(this).next('.error-message').text('適切な入力をしてください。').show();
+                    let errorMessage = '適切な入力をしてください。';
+                    if ($(this).attr('id') === 'id_latitude') {
+                        errorMessage = '地図上で場所を選択してください。';
+                    } else if ($(this).attr('id') === 'id_longitude') {
+                        errorMessage = '地図上で場所を選択してください。';
+                    }
+                    $(this).next('.error-message').text(errorMessage).show();
                 }
             });
         });
     </script>
+
+
+
 </form>
 {% endblock %}

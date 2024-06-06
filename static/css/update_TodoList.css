@@ -47,8 +47,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 30px;
-    gap: 80px;
+    padding: 10px;
+    gap: 10px;
 }
 /* フォームボタン */
 .form-button {
@@ -62,11 +62,23 @@ body {
     cursor: pointer; /* ホバー時にカーソルをポインターに変更 */
     margin-top: 20px;
 }
+.user-button {
+    width: 100%; /* ボタンの幅を100%に設定 */
+    max-width: 130px; /* ボタンの最大幅を設定 */
+    padding: 10px; /* ボタンの内側のスペースを設定 */
+    background-color: #88b1c2; /* ボタンの背景色を設定 */
+    color: white; /* ボタンの文字色を設定 */
+    border: none; /* ボタンの枠線を削除 */
+    border-radius: 5px; /* ボタンの角を丸くする */
+    cursor: pointer; /* ホバー時にカーソルをポインターに変更 */
+    margin-top: 20px;
+
+}
 .delete-button {
     width: 100%; /* ボタンの幅を100%に設定 */
     max-width: 100px; /* ボタンの最大幅を設定 */
     padding: 10px; /* ボタンの内側のスペースを設定 */
-    background-color: #88b1c2; /* ボタンの背景色を設定 */
+    background-color: #e25050; /* ボタンの背景色を設定 */
     color: white; /* ボタンの文字色を設定 */
     border: none; /* ボタンの枠線を削除 */
     border-radius: 5px; /* ボタンの角を丸くする */

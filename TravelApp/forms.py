@@ -169,11 +169,11 @@ class TravelRecordInsertForm(forms.ModelForm):
 class TravelRecordInsertForm(forms.Form):
     #user_id = forms.IntegerField(widget=forms.HiddenInput)
     destination_name = forms.CharField(label='旅行先', widget=forms.TextInput(attrs={'class': 'form-control', 'required': 'required'}))
-    date = forms.DateField(label='旅行した日',widget=DatePickerWidget(attrs={'class': 'form-control', 'required': 'required'}), error_messages={'required': '日付を選択してください'})
+    date = forms.DateField(label='旅行した日',widget=DatePickerWidget(attrs={'class': 'form-control', 'readonly': 'readonly'}))
     TravelRecord = forms.CharField(label='記録', widget=forms.Textarea(attrs={'class': 'form-control', 'required': 'required'}))
     picture = forms.ImageField(label='画像アップロード', required=False)
-    latitude = forms.FloatField(label='緯度(地図上で場所を選択すると自動入力されます)', widget=forms.TextInput(attrs={'class': 'form-control', 'required': 'required'}))
-    longitude = forms.FloatField(label='経度(地図上で場所を選択すると自動入力されます)', widget=forms.TextInput(attrs={'class': 'form-control', 'required': 'required'}))
+    latitude = forms.FloatField(label='緯度(地図上で場所を選択すると自動入力されます)', widget=forms.TextInput(attrs={'class': 'form-control', 'readonly': 'readonly'}))
+    longitude = forms.FloatField(label='経度(地図上で場所を選択すると自動入力されます)', widget=forms.TextInput(attrs={'class': 'form-control', 'readonly': 'readonly'}))
 
     def clean_destination_name(self):
         destination_name = self.cleaned_data.get('destination_name')
@@ -196,13 +196,13 @@ class TravelRecordInsertForm(forms.Form):
     def clean_latitude(self):
         latitude = self.cleaned_data.get('latitude')
         if not latitude:
-            raise ValidationError('地図上で場所を選択してください。')
+            raise ValidationError('緯度は数字で入力してください。')
         return latitude
     
     def clean_longitude(self):
         longitude = self.cleaned_data.get('longitude')
         if not longitude:
-            raise ValidationError('地図上で場所を選択してください。')
+            raise ValidationError('経度は数字で入力してください。')
         return longitude
 
 '''
@@ -227,10 +227,10 @@ class CustomClearableImageInput(ClearableFileInput):
 class DestinationUpdateForm(forms.Form):
     #destination_id = forms.IntegerField(label='No.')
     destination_name = forms.CharField(label='旅行先', widget=forms.TextInput(attrs={'class': 'form-control', 'required': 'required'}))
-    date = forms.DateField(label='旅行した日',widget=DatePickerWidget(attrs={'class': 'form-control', 'required': 'required'}), error_messages={'required': '日付を選択してください'})
+    date = forms.DateField(label='旅行した日',widget=DatePickerWidget(attrs={'class': 'form-control', 'readonly': 'readonly'}))
     TravelRecord = forms.CharField(label='記録', widget=forms.Textarea(attrs={'class': 'form-control', 'required': 'required'}))
-    latitude = forms.FloatField(label='緯度(地図上で場所を選択すると自動入力されます)', widget=forms.TextInput(attrs={'class': 'form-control', 'required': 'required'}))
-    longitude = forms.FloatField(label='経度(地図上で場所を選択すると自動入力されます)', widget=forms.TextInput(attrs={'class': 'form-control', 'required': 'required'}))
+    latitude = forms.FloatField(label='緯度(地図上で場所を選択すると自動入力されます)', widget=forms.TextInput(attrs={'class': 'form-control', 'readonly': 'readonly'}))
+    longitude = forms.FloatField(label='経度(地図上で場所を選択すると自動入力されます)', widget=forms.TextInput(attrs={'class': 'form-control', 'readonly': 'readonly'}))
     picture = forms.ImageField(label='画像アップロード', required=False)
 
     def clean_destination_name(self):

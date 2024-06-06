@@ -45,9 +45,16 @@
         <button type="submit">登録</button>
 -->
 <div class="button-container">
+    <button type="button" id="user-button" class="user-button">マイページへ</button>
+    <button type="button" id="back-button" class="back-button">前のページへ</button>
     <button class="form-button" type="submit">更新</button>
-    <button type="button" id="back-button" class="back-button">戻る</button>
 </div>
+    <script>
+        document.getElementById("user-button").addEventListener("click", function() {
+            window.location.href = "{% url 'TravelApp:user' %}";
+        });
+    </script>
+
     <script>
         document.getElementById("back-button").addEventListener("click", function() {
             window.location.href = "{% url 'TravelApp:Todo' %}";

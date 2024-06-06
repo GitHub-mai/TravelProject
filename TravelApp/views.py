@@ -99,8 +99,18 @@ def user_login(request):
         'error' : error_message
     })
 '''    
+'''
 class UserLogoutView(LogoutView):
     def get(self, request, *args, **kwargs):
+        logout(request)
+        return redirect('TravelApp:user_login')
+'''
+class UserLogoutView(View):
+    def get(self, request):
+        logout(request)
+        return redirect('TravelApp:user_login')
+
+    def post(self, request):
         logout(request)
         return redirect('TravelApp:user_login')
 
