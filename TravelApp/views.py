@@ -214,6 +214,45 @@ def destination_detail(request, destination_id):
     destination = Destinations.objects.get(id=destination_id)
     return render(request, 'destination_detail.html', {'destination': destination})
 '''
+'''
+def update_destination(request, destination_id):
+    #destination = Destinations.objects.get(destination_id=destination_id)
+    destination = get_object_or_404(Destinations, destination_id=destination_id)
+    update_form = forms.DestinationUpdateForm(
+        initial = {
+            'destination_id': destination.destination_id, 'destination_name': destination.destination_name, 'date': destination.date, 'TravelRecord': destination.TravelRecord, 'picture': destination.picture, 'latitude': destination.latitude, 'longitude': destination.longitude
+        }
+    )
+    if request.method == 'POST':
+        print("POST data:", request.POST)  # 追加: POSTデータを出力
+        update_form = forms.DestinationUpdateForm(request.POST, request.FILES, destination=destination)
+        if update_form.is_valid():
+            print("Form is valid")  # 追加: フォームが有効であることを出力
+            destination.destination_name = update_form.cleaned_data['destination_name']
+            destination.date = update_form.cleaned_data['date']
+            destination.latitude = update_form.cleaned_data['latitude'] 
+            destination.longitude = update_form.cleaned_data['longitude'] 
+            destination.TravelRecord = update_form.cleaned_data['TravelRecord']
+            destination.clear_picture = update_form.cleaned_data['clear_picture']         
+            picture = update_form.cleaned_data['picture']
+            if picture:
+                fs = FileSystemStorage()
+                file_name = fs.save(os.path.join('destination', picture.name), picture)
+                destination.picture = file_name
+            update_form.save()
+            return redirect('TravelApp:update_destination_completion')
+        else:
+            print("Form errors:", update_form.errors)  # 追加: フォームのエラーを出力
+    #else:
+    #    update_form = forms.DestinationUpdateForm(destination=destination)
+        
+    return render(
+        request, 'update_destination.html', context={
+            'update_form': update_form,
+            'destination': destination
+        }
+    )
+'''
 
 def update_destination(request, destination_id):
     destination = Destinations.objects.get(destination_id=destination_id)

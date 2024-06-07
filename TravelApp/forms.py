@@ -153,6 +153,7 @@ class DatePickerWidget(widgets.DateInput):
         return rendered + mark_safe('<script>$(function() { $("#id_%s").datepicker({ maxDate: 0 }); });</script>' % name)
 
 '''
+###バリデーションを追加する前###
 class TravelRecordInsertForm(forms.ModelForm):
     #user_id = forms.IntegerField(widget=forms.HiddenInput)
     destination_name = forms.CharField(label='旅行先', widget=forms.TextInput(attrs={'class': 'form-control'}))
@@ -206,6 +207,7 @@ class TravelRecordInsertForm(forms.Form):
         return longitude
 
 '''
+###バリデーションを追加する前###
 class DestinationUpdateForm(forms.Form):
     #destination_id = forms.IntegerField(label='No.')
     destination_name = forms.CharField(label='旅行先', widget=forms.TextInput(attrs={'class': 'form-control'}))
@@ -219,10 +221,6 @@ class DestinationUpdateForm(forms.Form):
         model = Destinations
         fields = ['destination_id', 'destination_name', 'date', 'TravelRecord', 'picture', 'latitude', 'longitude']    
 '''
-
-class CustomClearableImageInput(ClearableFileInput):
-    template_name = 'update_destination.html'
-
 
 class DestinationUpdateForm(forms.Form):
     #destination_id = forms.IntegerField(label='No.')
@@ -263,12 +261,83 @@ class DestinationUpdateForm(forms.Form):
             raise ValidationError('地図上で場所を選択してください。')
         return longitude
     
+'''
+class CustomClearableImageInput(ClearableFileInput):
+    template_name = 'update_destination.html'
+
+
+class DestinationUpdateForm(forms.Form):
+    #destination_id = forms.IntegerField(label='No.')
+    destination_name = forms.CharField(label='旅行先', widget=forms.TextInput(attrs={'class': 'form-control', 'required': 'required'}))
+    date = forms.DateField(label='旅行した日',widget=DatePickerWidget(attrs={'class': 'form-control', 'readonly': 'readonly'}))
+    TravelRecord = forms.CharField(label='記録', widget=forms.Textarea(attrs={'class': 'form-control', 'required': 'required'}))
+    latitude = forms.FloatField(label='緯度(地図上で場所を選択すると自動入力されます)', widget=forms.TextInput(attrs={'class': 'form-control', 'readonly': 'readonly'}))
+    longitude = forms.FloatField(label='経度(地図上で場所を選択すると自動入力されます)', widget=forms.TextInput(attrs={'class': 'form-control', 'readonly': 'readonly'}))
+    picture = forms.ImageField(label='画像アップロード', required=False)
+    clear_picture = forms.BooleanField(label='画像を削除', required=False)
+
+    def __init__(self, *args, **kwargs):
+        self.destination = kwargs.pop('destination', None)
+        super(DestinationUpdateForm, self).__init__(*args, **kwargs)
+        if self.destination and self.destination.picture:
+            self.fields['picture'].widget.attrs['readonly'] = 'readonly'
+    
+    def save(self, commit=True):
+        if self.destination:
+            print("Form is being processed")  # デバッグポイント
+            if self.cleaned_data.get('clear_picture'):
+                print("Clear image is checked")  # 追加: クリアボックスがチェックされていることを出力
+                if self.destination.picture:
+                    print("Deleting image:", self.destination.picture.name)  # 追加: 削除する画像の名前を出力
+                    self.destination.picture.delete()
+                    self.destination.picture = None
+            else:
+                print("Clear image not checked")  # デバッグポイント
+            if self.cleaned_data.get('picture'):
+                self.destination.picture = self.cleaned_data.get('picture')
+            if commit:
+                print("Saving destination")  # デバッグポイント
+                self.destination.save()
+            return self.destination
+        return None
+
+    def clean_destination_name(self):
+        destination_name = self.cleaned_data.get('destination_name')
+        if not destination_name.strip():
+            raise ValidationError('適切な入力をしてください。')
+        return destination_name
+
+    def clean_date(self):
+        date = self.cleaned_data.get('date')
+        if not date:
+            raise ValidationError('日付を選択してください。')
+        return date
+
+    def clean_TravelRecord(self):
+        TravelRecord = self.cleaned_data.get('TravelRecord')
+        if not TravelRecord.strip():
+            raise ValidationError('適切な入力をしてください。')
+        return TravelRecord
+        
+    def clean_latitude(self):
+        latitude = self.cleaned_data.get('latitude')
+        if not latitude:
+            raise ValidationError('地図上で場所を選択してください。')
+        return latitude
+    
+    def clean_longitude(self):
+        longitude = self.cleaned_data.get('longitude')
+        if not longitude:
+            raise ValidationError('地図上で場所を選択してください。')
+        return longitude
+'''    
 class DestinationDeleteForm(forms.Form):
     destination_id = forms.IntegerField(widget=forms.HiddenInput)
 
 
 ###Todoリスト登録、編集、削除###
 '''
+###バリデーションを追加する前###
 class TodoListInsertForm(forms.ModelForm):
     destination = forms.CharField(label='旅行先', widget=forms.TextInput(attrs={'class': 'form-control', 'required': 'required'}))
     todo_list = forms.CharField(label='やりたいこと', max_length=500, widget=forms.Textarea(attrs={'class': 'form-control', 'required': 'required'}))
@@ -296,6 +365,7 @@ class TodoListInsertForm(forms.Form):
         return todo_list
 
 '''
+###バリデーションを追加する前###
 class TodoListUpdateForm(forms.Form):
     #destination_id = forms.IntegerField(label='No.')
     destination = forms.CharField(label='旅行先', widget=forms.TextInput(attrs={'class': 'form-control'}))

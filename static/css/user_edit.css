@@ -148,6 +148,10 @@ button, .next-page-link {
     cursor: not-allowed;
 }
 
-.error {
-    color: red;
+.errorlist li, .error {
+    color: red; /* エラーメッセージの文字色を赤に設定 */
+}
+
+.helptext {
+    color: green; /* ヘルプテキストの文字色を緑に設定 */
 }
